@@ -60,7 +60,7 @@ public class ClienteRepository {
  
 		boolean alterou = false;
  
-		String query = " UPDATE cliente " + " SET   nome=?, cpf=?, telefone=?, " + " WHERE id_cliente=?";
+		String query = " UPDATE cliente " + " SET   nome=?, cpf=?, telefone=? " + " WHERE id_cliente= ?";
 		Connection conn = Banco.getConnection();
 		PreparedStatement pstmt = Banco.getPreparedStatement(conn, query);
 		try {
