@@ -3,7 +3,7 @@
   <groupId>projeto-mtv</groupId>
   <artifactId>projeto-mtv</artifactId>
   <version>0.0.1-SNAPSHOT</version>
- <packaging>war</packaging>
+  <packaging>war</packaging>
   
   <dependencies>
 	<dependency>
