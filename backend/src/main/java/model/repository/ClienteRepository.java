@@ -1,20 +1,17 @@
 package model.repository;
- 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
- 
 import model.entity.Cliente;
- 
- 
- 
-public class ClienteRepository {
- 
+
+public class ClienteRepository implements BaseRepository<Cliente> {
+
 	public Cliente salvar(Cliente cliente) {
- 
+
 		String query = "INSERT INTO cliente (nome, cpf, telefone) VALUES (?, ?, ?)";
 		Connection conn = Banco.getConnection();
 		PreparedStatement pstmt = Banco.getPreparedStatementWithPk(conn, query);
@@ -36,7 +33,7 @@ public class ClienteRepository {
 		}
 		return cliente;
 	}
- 
+
 	public boolean excluir(int id) {
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
@@ -55,21 +52,21 @@ public class ClienteRepository {
 		}
 		return excluiu;
 	}
- 
+
 	public boolean alterar(Cliente novoCliente) {
- 
+
 		boolean alterou = false;
- 
+
 		String query = " UPDATE cliente " + " SET   nome=?, cpf=?, telefone=? " + " WHERE id_cliente= ?";
 		Connection conn = Banco.getConnection();
 		PreparedStatement pstmt = Banco.getPreparedStatement(conn, query);
 		try {
- 
+
 			pstmt.setString(1, novoCliente.getNome());
 			pstmt.setString(2, novoCliente.getCpf());
 			pstmt.setString(3, novoCliente.getTelefone());
 			pstmt.setInt(4, novoCliente.getIdCliente());
- 
+
 			alterou = pstmt.executeUpdate() > 0;
 		} catch (SQLException erro) {
 			System.out.println("Erro ao atualizar cliente!");
@@ -80,16 +77,15 @@ public class ClienteRepository {
 		}
 		return alterou;
 	}
-	
-	
+
 	public Cliente consultarPorId(int id) {
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
- 
+
 		ResultSet resultado = null;
 		Cliente cliente = new Cliente();
 		String query = " SELECT * FROM cliente WHERE id_cliente = " + id;
- 
+
 		try {
 			resultado = stmt.executeQuery(query);
 			if (resultado.next()) {
@@ -97,7 +93,7 @@ public class ClienteRepository {
 				cliente.setNome(resultado.getString("NOME"));
 				cliente.setCpf(resultado.getString("cpf"));
 				cliente.setTelefone(resultado.getString("telefone"));
- 
+
 			}
 		} catch (SQLException erro) {
 			System.out.println("Erro ao executar consultar Cliemte com id (" + id + ")");
@@ -109,28 +105,26 @@ public class ClienteRepository {
 		}
 		return cliente;
 	}
- 
-	
-	
+
 	public ArrayList<Cliente> consultarTodos() {
- 
+
 		ArrayList<Cliente> clientes = new ArrayList<>();
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
- 
+
 		ResultSet resultado = null;
 		String query = " SELECT * FROM cliente";
- 
+
 		try {
 			resultado = stmt.executeQuery(query);
 			while (resultado.next()) {
 				Cliente cliente = new Cliente();
- 
+
 				cliente.setIdCliente(resultado.getInt("id_cliente"));
 				cliente.setNome(resultado.getString("NOME"));
 				cliente.setCpf(resultado.getString("cpf"));
 				cliente.setTelefone(resultado.getString("telefone"));
-				
+
 				clientes.add(cliente);
 			}
 		} catch (SQLException erro) {
