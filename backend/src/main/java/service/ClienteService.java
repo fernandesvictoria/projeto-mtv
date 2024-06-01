@@ -11,8 +11,14 @@ public class ClienteService {
 	private ClienteRepository repository = new ClienteRepository();
  
 	public Cliente salvar(Cliente novoCliente) throws CeramicaException {
- 
+		validarCpf(novoCliente);
 		return repository.salvar(novoCliente);
+	}
+	
+	private void validarCpf(Cliente novoCliente) throws CeramicaException {
+		if (repository.cpfExiste(novoCliente.getCpf())) {
+			throw new CeramicaException("CPF " + novoCliente.getCpf() + " já cadastrado ");
+		}
 	}
  
 	public boolean excluir(int id) throws CeramicaException {
