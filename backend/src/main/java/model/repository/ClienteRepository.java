@@ -81,6 +81,36 @@ public class ClienteRepository implements BaseRepository<Cliente> {
 		return excluiu;
 	}
 	
+	public boolean verificarSePossuiPeca(int idCliente) {
+	    Connection conn = Banco.getConnection();
+	    PreparedStatement stmt = null;
+	    ResultSet resultado = null;
+	    boolean temCliente = false;
+
+	    try {
+	        String query = "SELECT COUNT(*) FROM peca WHERE id_cliente = ?";
+	        stmt = conn.prepareStatement(query);
+	        stmt.setInt(1, idCliente);
+	        resultado = stmt.executeQuery();
+
+	        if (resultado.next()) {
+	            int quantidadeCliente = resultado.getInt(1);
+	            if (quantidadeCliente > 0) {
+	                temCliente = true;
+	            }
+	        }
+	    } catch (SQLException e) {
+	        System.out.println("Erro ao verificar se a cliente possui uma peça cadastrada.");
+	        e.printStackTrace();
+	    } finally {
+	        Banco.closeResultSet(resultado);
+	        Banco.closeStatement(stmt);
+	        Banco.closeConnection(conn);
+	    }
+
+	    return temCliente;
+	}
+	
 	@Override
 	public boolean alterar(Cliente novoCliente) {
 
