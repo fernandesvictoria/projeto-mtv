@@ -10,6 +10,8 @@ import model.entity.Cliente;
 
 public class ClienteRepository implements BaseRepository<Cliente> {
 
+	
+	@Override
 	public Cliente salvar(Cliente cliente) {
 
 		String query = "INSERT INTO cliente (nome, cpf, telefone) VALUES (?, ?, ?)";
@@ -34,6 +36,32 @@ public class ClienteRepository implements BaseRepository<Cliente> {
 		return cliente;
 	}
 
+	
+	public boolean cpfExiste(String cpf) {
+		Connection conn = Banco.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet resultado = null;
+
+		try {
+			String query = "SELECT COUNT(*) AS total FROM cliente WHERE cpf = ?";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, cpf);
+			resultado = pstmt.executeQuery();
+			if (resultado.next()) {
+				int total = resultado.getInt("total");
+				return total > 0;
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao verificar a duplicidade do CPF: " + e.getMessage());
+		} finally {
+			Banco.closeResultSet(resultado);
+			Banco.closePreparedStatement(pstmt);
+			Banco.closeConnection(conn);
+		}
+		return false;
+	}
+	
+	@Override
 	public boolean excluir(int id) {
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
@@ -52,7 +80,8 @@ public class ClienteRepository implements BaseRepository<Cliente> {
 		}
 		return excluiu;
 	}
-
+	
+	@Override
 	public boolean alterar(Cliente novoCliente) {
 
 		boolean alterou = false;
@@ -77,7 +106,8 @@ public class ClienteRepository implements BaseRepository<Cliente> {
 		}
 		return alterou;
 	}
-
+	
+	@Override
 	public Cliente consultarPorId(int id) {
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
@@ -106,6 +136,7 @@ public class ClienteRepository implements BaseRepository<Cliente> {
 		return cliente;
 	}
 
+	@Override
 	public ArrayList<Cliente> consultarTodos() {
 
 		ArrayList<Cliente> clientes = new ArrayList<>();
