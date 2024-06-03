@@ -10,10 +10,14 @@ public class TipoService {
 	private TipoRepository repository = new TipoRepository();
 
 	public Tipo salvar(Tipo novoTipo) throws CeramicaException {
+		validarTipo(novoTipo);
 		return repository.salvar(novoTipo);
 	}
 
 	public boolean excluir(int id) throws CeramicaException {
+		if (repository.verificarSePossuiPeca(id)) {
+			throw new CeramicaException("Não é possivel excluir, alguma Peça possui este tipo! ");
+		}
 		return repository.excluir(id);
 	}
 
@@ -29,4 +33,13 @@ public class TipoService {
 		return repository.consultarTodos();
 	}
 
+	private void validarTipo(Tipo tipo) throws CeramicaException {
+		if (tipo == null) {
+			throw new CeramicaException("Cliente não pode ser nula.");
+		}
+		if (tipo.getNome() == null) {
+			throw new CeramicaException("Nome cliente não pode ser nulo.");
+
+		}
+	}
 }
