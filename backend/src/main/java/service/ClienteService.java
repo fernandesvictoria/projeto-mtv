@@ -29,7 +29,9 @@ public class ClienteService {
 	}
 
 	public boolean alterar(Cliente clienteAlterado) throws CeramicaException {
+
 		validarCpf(clienteAlterado);
+
 		return repository.alterar(clienteAlterado);
 	}
 
