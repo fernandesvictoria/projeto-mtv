@@ -11,6 +11,7 @@ public class ClienteService {
 	private ClienteRepository repository = new ClienteRepository();
 
 	public Cliente salvar(Cliente novoCliente) throws CeramicaException {
+		this.validarCliente(novoCliente);
 		validarCpf(novoCliente);
 		return repository.salvar(novoCliente);
 	}
@@ -43,4 +44,19 @@ public class ClienteService {
 		return repository.consultarTodos();
 	}
 
+	private void validarCliente(Cliente cliente) throws CeramicaException {
+		if (cliente == null) {
+			throw new CeramicaException("Cliente não pode ser nula.");
+		}
+		if (cliente.getNome() == null) {
+			throw new CeramicaException("Nome cliente não pode ser nulo.");
+		}
+		if (cliente.getCpf() == null) {
+			throw new CeramicaException("CPF não pode ser nulo.");
+		}
+		if (cliente.getTelefone() == null) {
+			throw new CeramicaException("Telefone não pode ser nulo.");
+		}
+
+	}
 }
