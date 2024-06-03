@@ -8,23 +8,26 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import model.entity.Peca;
+import model.entity.enums.EstagioPeca;
+import model.entity.enums.Tamanho;
 
 public class PecaRepository implements BaseRepository<Peca> {
 
 	@Override
 	public Peca salvar(Peca novaPeca) {
-		String query = " INSERT INTO PECA " + " (TAMANHO, TIPO_PECA, ID_CLIENTE, ESTAGIO, VALOR_TOTAL) "
-				+ " VALUES(?, ?, ?, ?, ?) ";
+		String query = " INSERT INTO PECA " + " (ID_CLIENTE, ID_TIPO, TAMANHO, DESCRICAO, ESTAGIO, VALOR_TOTAL) "
+				+ " VALUES(?, ?, ?, ?, ?, ?) ";
 
 		Connection conn = Banco.getConnection();
 		PreparedStatement stmt = Banco.getPreparedStatementWithPk(conn, query);
 
 		try {
-			stmt.setString(1, novaPeca.getTamanho());
-			stmt.setString(2, novaPeca.getTipoPeca());
-			stmt.setInt(3, novaPeca.getCliente().getIdCliente());
-			stmt.setString(4, novaPeca.getEstagio());
-			stmt.setDouble(5, novaPeca.getValorTotal());
+			stmt.setInt(1, novaPeca.getCliente().getIdCliente());
+			stmt.setInt(2, novaPeca.getTipo().getIdTipo());
+			stmt.setString(3, novaPeca.getTamanho().toString());
+			stmt.setString(4, novaPeca.getDescricao());
+			stmt.setString(5, novaPeca.getEstagio().toString());
+			stmt.setDouble(6, novaPeca.getValorTotal());
 
 			stmt.execute();
 			ResultSet resultado = stmt.getGeneratedKeys();
@@ -64,18 +67,21 @@ public class PecaRepository implements BaseRepository<Peca> {
 	@Override
 	public boolean alterar(Peca pecaEditada) {
 		boolean alterou = false;
-		String query = " UPDATE peca " + " SET TAMANHO=?, TIPO_PECA=?, ID_CLIENTE=?, ESTAGIO=?, VALOR_TOTAL=? "
+		String query = " UPDATE peca " 
+				+ " SET ID_CLIENTE=?, ID_TIPO=?, TAMANHO=?, DESCRICAO=?, ESTAGIO=?, VALOR_TOTAL=?"
 				+ " WHERE ID_PECA=? ";
+		
 		Connection conn = Banco.getConnection();
 		PreparedStatement stmt = Banco.getPreparedStatementWithPk(conn, query);
 		try {
-			stmt.setString(1, pecaEditada.getTamanho());
-			stmt.setString(2, pecaEditada.getTipoPeca());
-			stmt.setInt(3, pecaEditada.getCliente().getIdCliente());
-			stmt.setString(4, pecaEditada.getEstagio());
-			stmt.setDouble(5, pecaEditada.getValorTotal());
+			stmt.setInt(1, pecaEditada.getCliente().getIdCliente());
+			stmt.setInt(2, pecaEditada.getTipo().getIdTipo());
+			stmt.setString(3, pecaEditada.getTamanho().toString());
+			stmt.setString(4, pecaEditada.getDescricao());
+			stmt.setString(5, pecaEditada.getEstagio().toString());
+			stmt.setDouble(6, pecaEditada.getValorTotal());
 
-			stmt.setInt(6, pecaEditada.getIdPeca());
+			stmt.setInt(7, pecaEditada.getIdPeca());
 			alterou = stmt.executeUpdate() > 0;
 		} catch (SQLException erro) {
 			System.out.println("Erro ao atualizar peça.");
@@ -99,13 +105,15 @@ public class PecaRepository implements BaseRepository<Peca> {
 		try {
 			resultado = stmt.executeQuery(query);
 			ClienteRepository clienteRepository = new ClienteRepository();
+			TipoRepository tipoRepository = new TipoRepository();
 			if (resultado.next()) {
 				peca = new Peca();
 				peca.setIdPeca(Integer.parseInt(resultado.getString("ID_PECA")));
 				peca.setCliente(clienteRepository.consultarPorId(resultado.getInt("ID_CLIENTE")));
-				peca.setTamanho(resultado.getString("TAMANHO"));
-				peca.setTipoPeca(resultado.getString("TIPO_PECA"));
-				peca.setEstagio(resultado.getString("ESTAGIO"));
+				peca.setTipo(tipoRepository.consultarPorId(resultado.getInt("ID_TIPO")));
+				peca.setTamanho(Tamanho.valueOf(resultado.getString("TAMANHO").toUpperCase()));
+				peca.setDescricao(resultado.getString("DESCRICAO"));
+				peca.setEstagio(EstagioPeca.valueOf(resultado.getString("ESTAGIO").toUpperCase()));
 				peca.setValorTotal(resultado.getDouble("VALOR_TOTAL"));
 
 			}
@@ -134,15 +142,17 @@ public class PecaRepository implements BaseRepository<Peca> {
 			while (resultado.next()) {
 				Peca peca = new Peca();
 				peca.setIdPeca(resultado.getInt("ID_PECA"));
-				peca.setTamanho(resultado.getString("TAMANHO"));
-				peca.setTipoPeca(resultado.getString("TIPO_PECA"));
 
 				ClienteRepository clienteRepository = new ClienteRepository();
 				peca.setCliente(clienteRepository.consultarPorId(resultado.getInt("ID_CLIENTE")));
-
-				peca.setEstagio(resultado.getString("ESTAGIO"));
+				
+				TipoRepository tipoRepository = new TipoRepository();
+				peca.setTipo(tipoRepository.consultarPorId(resultado.getInt("ID_TIPO")));
+				
+				peca.setTamanho(Tamanho.valueOf(resultado.getString("TAMANHO").toUpperCase()));
+				peca.setDescricao(resultado.getString("DESCRICAO"));
+				peca.setEstagio(EstagioPeca.valueOf(resultado.getString("ESTAGIO").toUpperCase()));
 				peca.setValorTotal(resultado.getDouble("VALOR_TOTAL"));
-
 				pecas.add(peca);
 			}
 		} catch (SQLException erro) {
