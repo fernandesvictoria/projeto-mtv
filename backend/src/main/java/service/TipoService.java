@@ -35,10 +35,10 @@ public class TipoService {
 
 	private void validarTipo(Tipo tipo) throws CeramicaException {
 		if (tipo == null) {
-			throw new CeramicaException("Cliente não pode ser nula.");
+			throw new CeramicaException("Tipo não pode ser nulo.");
 		}
 		if (tipo.getNome() == null) {
-			throw new CeramicaException("Nome cliente não pode ser nulo.");
+			throw new CeramicaException("Nome em Tipo não pode ser nulo.");
 
 		}
 	}

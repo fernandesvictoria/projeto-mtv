@@ -46,7 +46,7 @@ public class ClienteService {
 
 	private void validarCliente(Cliente cliente) throws CeramicaException {
 		if (cliente == null) {
-			throw new CeramicaException("Cliente não pode ser nula.");
+			throw new CeramicaException("Cliente não pode ser nulo.");
 		}
 		if (cliente.getNome() == null) {
 			throw new CeramicaException("Nome cliente não pode ser nulo.");
