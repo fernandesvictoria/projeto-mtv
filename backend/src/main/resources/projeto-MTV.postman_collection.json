@@ -1,0 +1,401 @@
+{
+	"info": {
+		"_postman_id": "8e1cfce4-d5dc-41a9-b481-4d82606cae69",
+		"name": "projeto-MTV",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28749808",
+		"_collection_link": "https://projeto-mtv-9868.postman.co/workspace/Projeto-MTV-Workspace~1884a8b3-ceef-4b7b-8878-2e348c5b9acb/collection/29077056-8e1cfce4-d5dc-41a9-b481-4d82606cae69?action=share&source=collection_link&creator=28749808"
+	},
+	"item": [
+		{
+			"name": "Salvar Cliente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Juao\",\r\n  \"cpf\": \"34307100816\",\r\n  \"telefone\": \"123456780\"\r\n  \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/projeto-mtv/rest/cliente/salvar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto-mtv",
+						"rest",
+						"cliente",
+						"salvar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Excluir Cliente",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/projeto-mtv/rest/cliente/excluir/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto-mtv",
+						"rest",
+						"cliente",
+						"excluir",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar cliente",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/projeto-mtv/rest/cliente/consultar/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto-mtv",
+						"rest",
+						"cliente",
+						"consultar",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Clientes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/projeto-mtv/rest/cliente/todos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto-mtv",
+						"rest",
+						"cliente",
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Atualizar Cliente",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"idCliente\": 5,\r\n  \"nome\": \"Paulo Mendes\",\r\n  \"cpf\": \"12345678901\",\r\n  \"telefone\": \"987554854\"\r\n  \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/projeto-mtv/rest/cliente/alterar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto-mtv",
+						"rest",
+						"cliente",
+						"alterar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Peça - Salvar",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"cliente\": {\r\n            \"cpf\": \"00011122233\",\r\n            \"idCliente\": 1,\r\n            \"nome\": \"Tati\",\r\n            \"telefone\": \"11112221\"\r\n        },\r\n        \"estagio\": \"Biscoito\",\r\n        \"tamanho\": \"M\",\r\n        \"tipoPeca\": \"Xícara\",\r\n        \"valorTotal\": 50.0\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/projeto-mtv/rest/peca/salvar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto-mtv",
+						"rest",
+						"peca",
+						"salvar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Peça - Excluir",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/projeto-mtv/rest/peca/excluir/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto-mtv",
+						"rest",
+						"peca",
+						"excluir",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Peça - Todas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/projeto-mtv/rest/peca/todos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto-mtv",
+						"rest",
+						"peca",
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Peça - alterar",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"cliente\": {\r\n            \"cpf\": \"00011122233\",\r\n            \"idCliente\": 1,\r\n            \"nome\": \"Tati\",\r\n            \"telefone\": \"11112221\"\r\n        },\r\n        \"estagio\": \"Esmalte\",\r\n        \"idPeca\": 1,\r\n        \"tamanho\": \"M\",\r\n        \"tipoPeca\": \"Prato\",\r\n        \"valorTotal\": 50.0\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/projeto-mtv/rest/peca/alterar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto-mtv",
+						"rest",
+						"peca",
+						"alterar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Peça -",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/projeto-mtv/rest/peca/consultar/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto-mtv",
+						"rest",
+						"peca",
+						"consultar",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Queima - Salvar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"dataQueima\": \"2024-06-01T08:30:00\",\n    \"tipoQueima\": \"Biscoito\",\n    \"temperaturaAlcancada\": 950,\n    \"peca\": {\n        \"idPeca\": 180\n    },\n    \"forno\": \"Elétrico\",\n    \"precoQueima\": 100.50\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/projeto-mtv/rest/queima/salvar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto-mtv",
+						"rest",
+						"queima",
+						"salvar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Queima - Consultar por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/projeto-mtv/rest/queima/consultar/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto-mtv",
+						"rest",
+						"queima",
+						"consultar",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Queima - Consultar Todos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/projeto-mtv/rest/queima/todos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto-mtv",
+						"rest",
+						"queima",
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Queima - Atualizar",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"idQueima\": 1,\n    \"dataQueima\": \"2024-06-03T10:00:00\", \n    \"tipoQueima\": \"Vidrado\",\n    \"temperaturaAlcancada\": 1000, \n    \"peca\": {\n        \"idPeca\": 1\n    }, \n    \"forno\": \"Elétrico\", \n    \"precoQueima\": 150.00 \n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/projeto-mtv/rest/queima/alterar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto-mtv",
+						"rest",
+						"queima",
+						"alterar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Queima - Excluir",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/projeto-mtv/rest/queima/excluir/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto-mtv",
+						"rest",
+						"queima",
+						"excluir",
+						"5"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

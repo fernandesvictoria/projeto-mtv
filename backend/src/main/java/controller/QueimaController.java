@@ -17,7 +17,7 @@ import service.QueimaService;
 
 @Path("/queima")
 public class QueimaController {
-
+	
 	private QueimaService service = new QueimaService();
 
 	@POST
@@ -29,7 +29,7 @@ public class QueimaController {
 	}
 
 	@DELETE
-	@Path("excluir/{id}")
+	@Path("/excluir/{id}")
 	public boolean excluir(@PathParam("id") int id) throws CeramicaException {
 		return service.excluir(id);
 	}
@@ -43,14 +43,16 @@ public class QueimaController {
 	}
 
 	@GET
-	@Path("/todas")
+	@Path("/todos")
+	@Produces(MediaType.APPLICATION_JSON)
 	public List<Queima> consultarTodasQueimas() {
-		return service.consultarTodasQueimas();
+		return service.consultarTodos();
 	}
 
 	@GET
-	@Path("consultar/{id}")
-	public Queima consultarPorId(@PathParam("id") int id) {
+	@Path("/consultar/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Queima consultarPorId(@PathParam("id") int id) throws CeramicaException {
 		return service.consultarPorId(id);
 	}
 }

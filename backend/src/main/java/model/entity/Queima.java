@@ -3,11 +3,12 @@ package model.entity;
 import java.util.Date;
 
 public class Queima {
+
 	private int idQueima;
 	private Date dataQueima;
 	private String tipoQueima;
 	private int temperaturaAlcancada;
-	private int idPeca;
+	private Peca peca;
 	private String forno;
 	private double precoQueima;
 
@@ -15,14 +16,14 @@ public class Queima {
 		super();
 	}
 
-	public Queima(int idQueima, Date dataQueima, String tipoQueima, int temperaturaAlcancada, int idPeca, String forno,
+	public Queima(int idQueima, Date dataQueima, String tipoQueima, int temperaturaAlcancada, Peca peca, String forno,
 			double precoQueima) {
 		super();
 		this.idQueima = idQueima;
 		this.dataQueima = dataQueima;
 		this.tipoQueima = tipoQueima;
 		this.temperaturaAlcancada = temperaturaAlcancada;
-		this.idPeca = idPeca;
+		this.peca = peca;
 		this.forno = forno;
 		this.precoQueima = precoQueima;
 	}
@@ -59,12 +60,12 @@ public class Queima {
 		this.temperaturaAlcancada = temperaturaAlcancada;
 	}
 
-	public int getIdPeca() {
-		return idPeca;
+	public Peca getPeca() {
+		return peca;
 	}
 
-	public void setIdPeca(int idPeca) {
-		this.idPeca = idPeca;
+	public void setPeca(Peca peca) {
+		this.peca = peca;
 	}
 
 	public String getForno() {
