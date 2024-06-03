@@ -1,24 +1,31 @@
 package model.entity;
 
+import model.entity.enums.EstagioPeca;
+import model.entity.enums.Tamanho;
 
 public class Peca {
 	private int idPeca;
 	private Cliente cliente;
-	private String tamanho;
-	private String tipoPeca;
-	private String estagio;
+	private Tamanho tamanho;
+	private Tipo tipo;
+	private String descricao;
+	private EstagioPeca estagio;
 	private double valorTotal;
 		
 	public Peca() {
 		super();
 	}
 
-	public Peca(int idPeca, Cliente cliente, String tamanho, String tipoPeca, String estagio, double valorTotal) {
+	
+
+	public Peca(int idPeca, Cliente cliente, Tamanho tamanho, Tipo tipo, String descricao, EstagioPeca estagio,
+			double valorTotal) {
 		super();
 		this.idPeca = idPeca;
 		this.cliente = cliente;
 		this.tamanho = tamanho;
-		this.tipoPeca = tipoPeca;
+		this.tipo = tipo;
+		this.descricao = descricao;
 		this.estagio = estagio;
 		this.valorTotal = valorTotal;
 	}
@@ -27,48 +34,81 @@ public class Peca {
 		return idPeca;
 	}
 
-	public void setIdPeca(int idPeca) {
-		this.idPeca = idPeca;
-	}
+
 
 	public Cliente getCliente() {
 		return cliente;
 	}
 
+
+
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
 
-	public String getTamanho() {
+
+
+	public Tamanho getTamanho() {
 		return tamanho;
 	}
 
-	public void setTamanho(String tamanho) {
+
+
+	public void setTamanho(Tamanho tamanho) {
 		this.tamanho = tamanho;
 	}
 
-	public String getTipoPeca() {
-		return tipoPeca;
+
+
+	public Tipo getTipo() {
+		return tipo;
 	}
 
-	public void setTipoPeca(String tipoPeca) {
-		this.tipoPeca = tipoPeca;
+
+
+	public void setTipo(Tipo tipo) {
+		this.tipo = tipo;
 	}
 
-	public String getEstagio() {
+
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+
+
+	public EstagioPeca getEstagio() {
 		return estagio;
 	}
 
-	public void setEstagio(String estagio) {
+
+
+	public void setEstagio(EstagioPeca estagio) {
 		this.estagio = estagio;
 	}
+
+
 
 	public double getValorTotal() {
 		return valorTotal;
 	}
 
+
+
 	public void setValorTotal(double valorTotal) {
 		this.valorTotal = valorTotal;
 	}
 
+
+
+	public void setIdPeca(int idPeca) {
+		this.idPeca = idPeca;
+	}
 }
