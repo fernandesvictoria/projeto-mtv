@@ -2,22 +2,25 @@ package model.entity;
 
 import java.util.Date;
 
+import model.entity.enums.TipoQueima;
+
 public class Queima {
 
 	private int idQueima;
 	private Date dataQueima;
-	private String tipoQueima;
+	private TipoQueima tipoQueima;
 	private int temperaturaAlcancada;
 	private Peca peca;
 	private String forno;
 	private double precoQueima;
+	private boolean pago;
 
 	public Queima() {
 		super();
 	}
 
-	public Queima(int idQueima, Date dataQueima, String tipoQueima, int temperaturaAlcancada, Peca peca, String forno,
-			double precoQueima) {
+	public Queima(int idQueima, Date dataQueima, TipoQueima tipoQueima, int temperaturaAlcancada, Peca peca,
+			String forno, double precoQueima, boolean pago) {
 		super();
 		this.idQueima = idQueima;
 		this.dataQueima = dataQueima;
@@ -26,6 +29,7 @@ public class Queima {
 		this.peca = peca;
 		this.forno = forno;
 		this.precoQueima = precoQueima;
+		this.pago = pago;
 	}
 
 	public int getIdQueima() {
@@ -44,11 +48,11 @@ public class Queima {
 		this.dataQueima = dataQueima;
 	}
 
-	public String getTipoQueima() {
+	public TipoQueima getTipoQueima() {
 		return tipoQueima;
 	}
 
-	public void setTipoQueima(String tipoQueima) {
+	public void setTipoQueima(TipoQueima tipoQueima) {
 		this.tipoQueima = tipoQueima;
 	}
 
@@ -83,4 +87,14 @@ public class Queima {
 	public void setPrecoQueima(double precoQueima) {
 		this.precoQueima = precoQueima;
 	}
+
+	public boolean isPago() {
+		return pago;
+	}
+
+	public void setPago(boolean pago) {
+		this.pago = pago;
+	}
+
+	
 }

@@ -45,7 +45,7 @@ public class QueimaService {
 		if (queima.getDataQueima() == null) {
 			throw new CeramicaException("Data da queima não pode ser nula.");
 		}
-		if (queima.getTipoQueima() == null || queima.getTipoQueima().isEmpty()) {
+		if (queima.getTipoQueima() == null) {
 			throw new CeramicaException("Tipo de queima não pode ser vazio.");
 		}
 		if (queima.getTemperaturaAlcancada() <= 0) {
