@@ -155,4 +155,35 @@ public class PecaRepository implements BaseRepository<Peca> {
 		}
 		return pecas;
 	}
+	
+	public boolean verificarSePossuiQueima(int idPeca) {
+	    Connection conn = Banco.getConnection();
+	    PreparedStatement stmt = null;
+	    ResultSet resultado = null;
+	    boolean temQueima = false;
+ 
+	    try {
+	        String query = "SELECT COUNT(*) FROM QUEIMA WHERE ID_PECA = ?";
+	        stmt = conn.prepareStatement(query);
+	        stmt.setInt(1, idPeca);
+	        resultado = stmt.executeQuery();
+ 
+	        if (resultado.next()) {
+	            int qtdeQueima = resultado.getInt(1);
+	            if (qtdeQueima > 0) {
+	            	temQueima = true;
+	            }
+	        }
+	    } catch (SQLException e) {
+	        System.out.println("Erro ao verificar se há queima cadastrada na peça.");
+	        e.printStackTrace();
+	    } finally {
+	        Banco.closeResultSet(resultado);
+	        Banco.closeStatement(stmt);
+	        Banco.closeConnection(conn);
+	    }
+ 
+	    return temQueima;
+	}
+	
 }
