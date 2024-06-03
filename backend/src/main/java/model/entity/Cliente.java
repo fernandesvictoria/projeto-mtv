@@ -1,5 +1,6 @@
 package model.entity;
 
+
 public class Cliente {
 
 	private int idCliente;
@@ -7,17 +8,17 @@ public class Cliente {
 	private String cpf;
 	private String telefone;
 
-	public Cliente() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
 	public Cliente(int idCliente, String nome, String cpf, String telefone) {
 		super();
 		this.idCliente = idCliente;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.telefone = telefone;
+	}
+
+	public Cliente() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public int getIdCliente() {
