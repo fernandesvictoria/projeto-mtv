@@ -22,6 +22,7 @@ public class TipoService {
 	}
 
 	public boolean alterar(Tipo pecaAlterada) throws CeramicaException {
+		validarTipo(pecaAlterada);
 		return repository.alterar(pecaAlterada);
 	}
 
@@ -40,6 +41,9 @@ public class TipoService {
 		if (tipo.getNome() == null) {
 			throw new CeramicaException("Nome em Tipo não pode ser nulo.");
 
+		}
+		if (repository.existeTipo(tipo.getNome())) {
+			throw new CeramicaException("Já existe um tipo com o nome fornecido.");
 		}
 	}
 }

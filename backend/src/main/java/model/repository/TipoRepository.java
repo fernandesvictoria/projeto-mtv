@@ -162,5 +162,31 @@ public class TipoRepository implements BaseRepository<Tipo> {
 		}
 		return tipos;
 	}
+	
+	public boolean existeTipo(String nome) {
+        Connection conn = Banco.getConnection();
+        PreparedStatement pstmt = null;
+        ResultSet resultado = null;
+        boolean existe = false;
 
+        try {
+            String query = "SELECT COUNT(*) FROM tipo WHERE nome = ?";
+            pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, nome);
+            resultado = pstmt.executeQuery();
+
+            if (resultado.next() && resultado.getInt(1) > 0) {
+                existe = true;
+            }
+        } catch (SQLException erro) {
+            System.out.println("Erro ao verificar se o tipo com nome já existe!");
+            erro.printStackTrace();
+        } finally {
+            Banco.closeResultSet(resultado);
+            Banco.closeStatement(pstmt);
+            Banco.closeConnection(conn);
+        }
+
+        return existe;
+    }
 }
