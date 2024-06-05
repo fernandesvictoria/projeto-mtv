@@ -8,24 +8,24 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import model.entity.Queima;
-import model.entity.enums.TipoQueima;
 
 public class QueimaRepository implements BaseRepository<Queima> {
 
 	@Override
 	public Queima salvar(Queima novaQueima) {
-		String query = "INSERT INTO QUEIMA (DATA_QUEIMA, TIPO_QUEIMA, TEMPERATURA_ALCANCADA, ID_PECA, FORNO, PRECO_QUEIMA) VALUES (?, ?, ?, ?, ?, ?)";
+		String query = "INSERT INTO QUEIMA (DATA_QUEIMA, TIPO_QUEIMA, TEMPERATURA_ALCANCADA, ID_PECA, FORNO, PRECO_QUEIMA, PAGO) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 		Connection conn = Banco.getConnection();
 		PreparedStatement stmt = Banco.getPreparedStatementWithPk(conn, query);
 
 		try {
 			stmt.setDate(1, new java.sql.Date(novaQueima.getDataQueima().getTime()));
-			stmt.setString(2, novaQueima.getTipoQueima().toString());
+			stmt.setString(2, novaQueima.getTipoQueima());
 			stmt.setInt(3, novaQueima.getTemperaturaAlcancada());
 			stmt.setInt(4, novaQueima.getPeca().getIdPeca());
 			stmt.setString(5, novaQueima.getForno());
 			stmt.setDouble(6, novaQueima.getPrecoQueima());
+			stmt.setBoolean(7, novaQueima.isPago());
 
 			stmt.execute();
 			ResultSet resultado = stmt.getGeneratedKeys();
@@ -65,17 +65,18 @@ public class QueimaRepository implements BaseRepository<Queima> {
 	@Override
 	public boolean alterar(Queima queimaEditada) {
 		boolean alterou = false;
-		String query = "UPDATE QUEIMA SET DATA_QUEIMA=?, TIPO_QUEIMA=?, TEMPERATURA_ALCANCADA=?, ID_PECA=?, FORNO=?, PRECO_QUEIMA=? WHERE ID_QUEIMA=?";
+		String query = "UPDATE QUEIMA SET DATA_QUEIMA=?, TIPO_QUEIMA=?, TEMPERATURA_ALCANCADA=?, ID_PECA=?, FORNO=?, PRECO_QUEIMA=?, PAGO=? WHERE ID_QUEIMA=?";
 		Connection conn = Banco.getConnection();
 		PreparedStatement stmt = Banco.getPreparedStatementWithPk(conn, query);
 		try {
 			stmt.setDate(1, new java.sql.Date(queimaEditada.getDataQueima().getTime()));
-			stmt.setString(2, queimaEditada.getTipoQueima().toString());
+			stmt.setString(2, queimaEditada.getTipoQueima());
 			stmt.setInt(3, queimaEditada.getTemperaturaAlcancada());
 			stmt.setInt(4, queimaEditada.getPeca().getIdPeca());
 			stmt.setString(5, queimaEditada.getForno());
 			stmt.setDouble(6, queimaEditada.getPrecoQueima());
-			stmt.setInt(7, queimaEditada.getIdQueima());
+			stmt.setBoolean(7, queimaEditada.isPago());
+			stmt.setInt(8, queimaEditada.getIdQueima());
 
 			alterou = stmt.executeUpdate() > 0;
 		} catch (SQLException erro) {
@@ -104,11 +105,12 @@ public class QueimaRepository implements BaseRepository<Queima> {
 				queima = new Queima();
 				queima.setIdQueima(resultado.getInt("ID_QUEIMA"));
 				queima.setDataQueima(resultado.getDate("DATA_QUEIMA"));
-				queima.setTipoQueima(TipoQueima.valueOf(resultado.getString("TIPO_QUEIMA").toUpperCase()));
+				queima.setTipoQueima(resultado.getString("TIPO_QUEIMA"));
 				queima.setTemperaturaAlcancada(resultado.getInt("TEMPERATURA_ALCANCADA"));
 				queima.setPeca(pecaRepository.consultarPorId(resultado.getInt("ID_PECA")));
 				queima.setForno(resultado.getString("FORNO"));
 				queima.setPrecoQueima(resultado.getDouble("PRECO_QUEIMA"));
+				queima.setPago(resultado.getBoolean("PAGO"));
 			}
 		} catch (SQLException erro) {
 			System.out.println("Erro ao consultar queima com o id: " + id);
@@ -137,11 +139,12 @@ public class QueimaRepository implements BaseRepository<Queima> {
 				Queima queima = new Queima();
 				queima.setIdQueima(resultado.getInt("ID_QUEIMA"));
 				queima.setDataQueima(resultado.getDate("DATA_QUEIMA"));
-				queima.setTipoQueima(TipoQueima.valueOf(resultado.getString("TIPO_QUEIMA").toUpperCase()));
+				queima.setTipoQueima(resultado.getString("TIPO_QUEIMA"));
 				queima.setTemperaturaAlcancada(resultado.getInt("TEMPERATURA_ALCANCADA"));
 				queima.setPeca(pecaRepository.consultarPorId(resultado.getInt("ID_PECA")));
 				queima.setForno(resultado.getString("FORNO"));
 				queima.setPrecoQueima(resultado.getDouble("PRECO_QUEIMA"));
+				queima.setPago(resultado.getBoolean("PAGO"));
 
 				queimas.add(queima);
 			}

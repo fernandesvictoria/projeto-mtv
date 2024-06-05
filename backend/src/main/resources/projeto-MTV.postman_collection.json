@@ -8,7 +8,7 @@
 	},
 	"item": [
 		{
-			"name": "Salvar Cliente",
+			"name": "Cliente - Salvar",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -39,12 +39,12 @@
 			"response": []
 		},
 		{
-			"name": "Excluir Cliente",
+			"name": "Cliente - Excluir",
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/projeto-mtv/rest/cliente/excluir/5",
+					"raw": "http://localhost:8080/projeto-mtv/rest/cliente/excluir/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -55,59 +55,14 @@
 						"rest",
 						"cliente",
 						"excluir",
-						"5"
+						"1"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Buscar cliente",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/projeto-mtv/rest/cliente/consultar/2",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"projeto-mtv",
-						"rest",
-						"cliente",
-						"consultar",
-						"2"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Listar Clientes",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/projeto-mtv/rest/cliente/todos",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"projeto-mtv",
-						"rest",
-						"cliente",
-						"todos"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Atualizar Cliente",
+			"name": "Cliente - Atualizar",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -132,6 +87,51 @@
 						"rest",
 						"cliente",
 						"alterar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cliente - Consultar por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/projeto-mtv/rest/cliente/consultar/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto-mtv",
+						"rest",
+						"cliente",
+						"consultar",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cliente - Consultar Todos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/projeto-mtv/rest/cliente/todos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto-mtv",
+						"rest",
+						"cliente",
+						"todos"
 					]
 				}
 			},
@@ -174,7 +174,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/projeto-mtv/rest/peca/excluir/6",
+					"raw": "http://localhost:8080/projeto-mtv/rest/peca/excluir/5",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -185,36 +185,14 @@
 						"rest",
 						"peca",
 						"excluir",
-						"6"
+						"5"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Peça - Todas",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/projeto-mtv/rest/peca/todos",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"projeto-mtv",
-						"rest",
-						"peca",
-						"todos"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Peça - alterar",
+			"name": "Peça - Atualizar",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -245,7 +223,7 @@
 			"response": []
 		},
 		{
-			"name": "Peça -",
+			"name": "Peça - Consultar por ID",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -268,6 +246,28 @@
 			"response": []
 		},
 		{
+			"name": "Peça - Consultar Todas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/projeto-mtv/rest/peca/todos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto-mtv",
+						"rest",
+						"peca",
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Queima - Salvar",
 			"request": {
 				"method": "POST",
@@ -279,7 +279,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"dataQueima\": \"2024-06-01T08:30:00\",\n    \"tipoQueima\": \"Biscoito\",\n    \"temperaturaAlcancada\": 950,\n    \"peca\": {\n        \"idPeca\": 180\n    },\n    \"forno\": \"Elétrico\",\n    \"precoQueima\": 100.50\n}\n"
+					"raw": "{\n    \"dataQueima\": \"2024-06-05T08:30:00\",\n    \"tipoQueima\": \"Redução\",\n    \"temperaturaAlcancada\": 1230,\n    \"peca\": {\n        \"idPeca\": 1\n    },\n    \"forno\": \"Elétrico\",\n    \"precoQueima\": 150.00,\n    \"pago\": false\n}\n"
 				},
 				"url": {
 					"raw": "http://localhost:8080/projeto-mtv/rest/queima/salvar",
@@ -299,12 +299,66 @@
 			"response": []
 		},
 		{
+			"name": "Queima - Excluir",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/projeto-mtv/rest/queima/excluir/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto-mtv",
+						"rest",
+						"queima",
+						"excluir",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Queima - Atualizar",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"idQueima\": 6,\n    \"dataQueima\": \"2024-06-10T08:30:00\",\n    \"tipoQueima\": \"Oxidação\",\n    \"temperaturaAlcancada\": 1250,\n    \"peca\": {\n        \"idPeca\": 2\n    },\n    \"forno\": \"A gás\",\n    \"precoQueima\": 200.00,\n    \"pago\": true\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/projeto-mtv/rest/queima/alterar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto-mtv",
+						"rest",
+						"queima",
+						"alterar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Queima - Consultar por ID",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/projeto-mtv/rest/queima/consultar/1",
+					"raw": "http://localhost:8080/projeto-mtv/rest/queima/consultar/6",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -315,7 +369,7 @@
 						"rest",
 						"queima",
 						"consultar",
-						"1"
+						"6"
 					]
 				}
 			},
@@ -344,21 +398,21 @@
 			"response": []
 		},
 		{
-			"name": "Queima - Atualizar",
+			"name": "Tipo - Salvar",
 			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
+				"method": "POST",
+				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"idQueima\": 1,\n    \"dataQueima\": \"2024-06-03T10:00:00\", \n    \"tipoQueima\": \"Vidrado\",\n    \"temperaturaAlcancada\": 1000, \n    \"peca\": {\n        \"idPeca\": 1\n    }, \n    \"forno\": \"Elétrico\", \n    \"precoQueima\": 150.00 \n}\n"
+					"raw": "{\r\n  \"nome\": \"Caixinha\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/projeto-mtv/rest/queima/alterar",
+					"raw": "http://localhost:8080/projeto-mtv/rest/tipo/salvar",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -367,7 +421,61 @@
 					"path": [
 						"projeto-mtv",
 						"rest",
-						"queima",
+						"tipo",
+						"salvar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tipo - Excluir",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/projeto-mtv/rest/tipo/excluir/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto-mtv",
+						"rest",
+						"tipo",
+						"excluir",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tipo - Atualizar",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idTipo\": 7,\r\n    \"nome\": \"Caixa\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/projeto-mtv/rest/tipo/alterar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto-mtv",
+						"rest",
+						"tipo",
 						"alterar"
 					]
 				}
@@ -375,12 +483,12 @@
 			"response": []
 		},
 		{
-			"name": "Queima - Excluir",
+			"name": "Tipo - Consultar por ID",
 			"request": {
-				"method": "DELETE",
+				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/projeto-mtv/rest/queima/excluir/5",
+					"raw": "http://localhost:8080/projeto-mtv/rest/tipo/consultar/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -389,9 +497,31 @@
 					"path": [
 						"projeto-mtv",
 						"rest",
-						"queima",
-						"excluir",
-						"5"
+						"tipo",
+						"consultar",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tipo - Consultar Todos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/projeto-mtv/rest/tipo/todos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto-mtv",
+						"rest",
+						"tipo",
+						"todos"
 					]
 				}
 			},
