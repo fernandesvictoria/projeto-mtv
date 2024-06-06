@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import model.entity.Peca;
 import model.entity.enums.EstagioPeca;
 import model.entity.enums.Tamanho;
+import model.seletor.PecaSeletor;
 
 public class PecaRepository implements BaseRepository<Peca> {
 
@@ -163,6 +164,83 @@ public class PecaRepository implements BaseRepository<Peca> {
 			Banco.closeStatement(stmt);
 			Banco.closeConnection(conn);
 		}
+		return pecas;
+	}
+	
+	public ArrayList<Peca> consultarComFiltros(PecaSeletor seletor){
+		ArrayList<Peca> pecas = new ArrayList<Peca>();
+		Connection conn = Banco.getConnection();
+		Statement stmt = Banco.getStatement(conn);
+		ResultSet resultado = null;
+		
+		String query = " select p.* from peca p "
+					 + " inner join cliente c on p.ID_CLIENTE = c.ID_CLIENTE "
+					 + " inner join tipo t on t.ID_TIPO = p.ID_TIPO ";
+		
+		boolean primeiro = true;
+		
+		if(seletor.getCliente() != null && seletor.getCliente().trim().length() > 0) {
+			if(primeiro) {
+				query += " WHERE ";
+			} else {
+				query += " AND ";
+			}
+			query += " UPPER(c.nome) LIKE UPPER('%" + seletor.getCliente() + "%') ";
+			primeiro = false;
+		}
+		
+		if(seletor.getEstagio() != null && seletor.getEstagio().trim().length() > 0) {
+			if(primeiro) {
+				query += " WHERE ";
+			} else {
+				query += " AND ";
+			}
+			query += " UPPER(p.estagio) LIKE UPPER('%" + seletor.getEstagio() + "%') ";
+			primeiro = false;
+		}
+		
+		if(seletor.getTipo() != null && seletor.getTipo().trim().length() > 0) {
+			if(primeiro) {
+				query += " WHERE ";
+			} else {
+				query += " AND ";
+			}
+			query += " UPPER(t.nome) LIKE UPPER('%" + seletor.getTipo() + "%') ";
+			primeiro = false;
+		}
+		
+		query += " ORDER BY C.NOME ";
+		
+		try {
+			resultado = stmt.executeQuery(query);
+			while (resultado.next()) {
+				Peca peca = new Peca();
+				
+				ClienteRepository clienteRepository = new ClienteRepository();
+				TipoRepository tipoRepository = new TipoRepository();
+				
+				peca.setIdPeca(resultado.getInt("ID_PECA"));
+				peca.setCliente(clienteRepository.consultarPorId(resultado.getInt("ID_CLIENTE")));
+				peca.setTipo(tipoRepository.consultarPorId(resultado.getInt("ID_TIPO")));
+				peca.setTamanho(Tamanho.valueOf(resultado.getString("TAMANHO").toUpperCase()));
+				peca.setDescricao(resultado.getString("DESCRICAO"));
+				peca.setEstagio(EstagioPeca.valueOf(resultado.getString("ESTAGIO").toUpperCase()));
+				peca.setValorTotal(resultado.getDouble("VALOR_TOTAL"));
+					
+				pecas.add(peca);
+				
+			}
+		} catch (SQLException erro) {
+			System.out.println("Erro ao executar consultar com filtro.");
+			System.out.println("Erro: " + erro.getMessage());
+		} finally {
+			Banco.closeResultSet(resultado);
+			Banco.closeStatement(stmt);
+			Banco.closeConnection(conn);
+		}
+		
+		
+		
 		return pecas;
 	}
 	

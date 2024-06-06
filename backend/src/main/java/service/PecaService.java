@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import exception.CeramicaException;
 import model.entity.Peca;
 import model.repository.PecaRepository;
+import model.seletor.PecaSeletor;
 
 public class PecaService {
 	private PecaRepository repository = new PecaRepository();
@@ -33,6 +34,10 @@ public class PecaService {
 
 	public ArrayList<Peca> consultarTodasPecas() {
 		return repository.consultarTodos();
+	}
+	
+	public ArrayList<Peca> consultarComFiltros(PecaSeletor seletor) {
+		return repository.consultarComFiltros(seletor);
 	}
 
 	private void validarPeca(Peca peca) throws CeramicaException {
