@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import exception.CeramicaException;
 import model.entity.Cliente;
 import model.repository.ClienteRepository;
+import model.seletor.ClienteSeletor;
+
 
 public class ClienteService {
 
@@ -42,6 +44,10 @@ public class ClienteService {
 
 	public ArrayList<Cliente> consultarTodosClientes() {
 		return repository.consultarTodos();
+	}
+
+	public ArrayList<Cliente> consultarComFiltro(ClienteSeletor seletor) {
+		return repository.consultarComFiltro(seletor);
 	}
 
 	private void validarCliente(Cliente cliente) throws CeramicaException {

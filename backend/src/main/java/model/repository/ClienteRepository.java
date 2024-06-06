@@ -7,10 +7,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import model.entity.Cliente;
+import model.seletor.ClienteSeletor;
+
+
 
 public class ClienteRepository implements BaseRepository<Cliente> {
 
-	
 	@Override
 	public Cliente salvar(Cliente cliente) {
 
@@ -36,7 +38,6 @@ public class ClienteRepository implements BaseRepository<Cliente> {
 		return cliente;
 	}
 
-	
 	public boolean cpfExiste(String cpf) {
 		Connection conn = Banco.getConnection();
 		PreparedStatement pstmt = null;
@@ -60,7 +61,7 @@ public class ClienteRepository implements BaseRepository<Cliente> {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public boolean excluir(int id) {
 		Connection conn = Banco.getConnection();
@@ -80,37 +81,37 @@ public class ClienteRepository implements BaseRepository<Cliente> {
 		}
 		return excluiu;
 	}
-	
+
 	public boolean verificarSePossuiPeca(int idCliente) {
-	    Connection conn = Banco.getConnection();
-	    PreparedStatement stmt = null;
-	    ResultSet resultado = null;
-	    boolean temCliente = false;
+		Connection conn = Banco.getConnection();
+		PreparedStatement stmt = null;
+		ResultSet resultado = null;
+		boolean temCliente = false;
 
-	    try {
-	        String query = "SELECT COUNT(*) FROM peca WHERE id_cliente = ?";
-	        stmt = conn.prepareStatement(query);
-	        stmt.setInt(1, idCliente);
-	        resultado = stmt.executeQuery();
+		try {
+			String query = "SELECT COUNT(*) FROM peca WHERE id_cliente = ?";
+			stmt = conn.prepareStatement(query);
+			stmt.setInt(1, idCliente);
+			resultado = stmt.executeQuery();
 
-	        if (resultado.next()) {
-	            int quantidadeCliente = resultado.getInt(1);
-	            if (quantidadeCliente > 0) {
-	                temCliente = true;
-	            }
-	        }
-	    } catch (SQLException e) {
-	        System.out.println("Erro ao verificar se a cliente possui uma peça cadastrada.");
-	        e.printStackTrace();
-	    } finally {
-	        Banco.closeResultSet(resultado);
-	        Banco.closeStatement(stmt);
-	        Banco.closeConnection(conn);
-	    }
+			if (resultado.next()) {
+				int quantidadeCliente = resultado.getInt(1);
+				if (quantidadeCliente > 0) {
+					temCliente = true;
+				}
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao verificar se a cliente possui uma peça cadastrada.");
+			e.printStackTrace();
+		} finally {
+			Banco.closeResultSet(resultado);
+			Banco.closeStatement(stmt);
+			Banco.closeConnection(conn);
+		}
 
-	    return temCliente;
+		return temCliente;
 	}
-	
+
 	@Override
 	public boolean alterar(Cliente novoCliente) {
 
@@ -136,7 +137,7 @@ public class ClienteRepository implements BaseRepository<Cliente> {
 		}
 		return alterou;
 	}
-	
+
 	@Override
 	public Cliente consultarPorId(int id) {
 		Connection conn = Banco.getConnection();
@@ -198,4 +199,60 @@ public class ClienteRepository implements BaseRepository<Cliente> {
 		}
 		return clientes;
 	}
+
+	public ArrayList<Cliente> consultarComFiltro(ClienteSeletor seletor) {
+		ArrayList<Cliente> clientes = new ArrayList<>();
+
+		Connection conn = Banco.getConnection();
+		Statement stmt = Banco.getStatement(conn);
+
+		ResultSet resultado = null;
+		String query = " select c.* from cliente c ";
+
+		boolean primeiro = true;
+
+		if (seletor.getNomeCliente() != null && seletor.getNomeCliente().trim().length() > 0) {
+			if (primeiro) {
+				query += " WHERE ";
+			} else {
+				query += " AND ";
+			}
+			query += " UPPER(c.nome) LIKE UPPER('%" + seletor.getNomeCliente() + "%') ";
+			primeiro = false;
+		}
+
+		if (seletor.getCpf() != null && seletor.getCpf().trim().length() > 0) {
+			if (primeiro) {
+				query += " WHERE ";
+			} else {
+				query += " AND ";
+			}
+			query += " UPPER(c.cpf) LIKE UPPER('%" + seletor.getCpf() + "%') ";
+			primeiro = false;
+
+		}
+
+		try {
+			resultado = stmt.executeQuery(query);
+			while (resultado.next()) {
+				Cliente cliente = new Cliente();
+				
+				cliente.setIdCliente(resultado.getInt("ID_CLIENTE"));
+				cliente.setNome(resultado.getString("NOME"));
+				cliente.setCpf(resultado.getString("CPF"));
+				cliente.setTelefone(resultado.getString("TELEFONE"));
+
+				clientes.add(cliente);
+			}
+		} catch (SQLException erro) {
+			System.out.println("Erro ao executar clientes consultar com filtro");
+			System.out.println("Erro: " + erro.getMessage());
+		} finally {
+			Banco.closeResultSet(resultado);
+			Banco.closeStatement(stmt);
+			Banco.closeConnection(conn);
+		}
+		return clientes;
+	}
+
 }
