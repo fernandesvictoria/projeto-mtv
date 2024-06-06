@@ -1,47 +1,46 @@
 package model.seletor;
 
-import model.entity.Cliente;
-import model.entity.Tipo;
-import model.entity.enums.EstagioPeca;
 
 public class PecaSeletor {
-	private Cliente cliente;
-	private EstagioPeca estagio;
-	private Tipo tipo;
+	private String cliente;
+	private String estagio;
+	private String tipo;
 	
 	public PecaSeletor() {
 		super();
 	}
 
-	public PecaSeletor(Cliente cliente, EstagioPeca estagio, Tipo tipo) {
+	public PecaSeletor(String cliente, String estagio, String tipo) {
 		super();
 		this.cliente = cliente;
 		this.estagio = estagio;
 		this.tipo = tipo;
 	}
 
-	public Cliente getCliente() {
+	public String getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(Cliente cliente) {
+	public void setCliente(String cliente) {
 		this.cliente = cliente;
 	}
 
-	public EstagioPeca getEstagio() {
+	public String getEstagio() {
 		return estagio;
 	}
 
-	public void setEstagio(EstagioPeca estagio) {
+	public void setEstagio(String estagio) {
 		this.estagio = estagio;
 	}
 
-	public Tipo getTipo() {
+	public String getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(Tipo tipo) {
+	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
+
+	
 	
 }

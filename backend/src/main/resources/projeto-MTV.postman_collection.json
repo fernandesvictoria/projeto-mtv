@@ -3,8 +3,8 @@
 		"_postman_id": "8e1cfce4-d5dc-41a9-b481-4d82606cae69",
 		"name": "projeto-MTV",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "28749808",
-		"_collection_link": "https://projeto-mtv-9868.postman.co/workspace/Projeto-MTV-Workspace~1884a8b3-ceef-4b7b-8878-2e348c5b9acb/collection/29077056-8e1cfce4-d5dc-41a9-b481-4d82606cae69?action=share&source=collection_link&creator=28749808"
+		"_exporter_id": "29077056",
+		"_collection_link": "https://projeto-mtv-9868.postman.co/workspace/Projeto-MTV-Workspace~1884a8b3-ceef-4b7b-8878-2e348c5b9acb/collection/29077056-8e1cfce4-d5dc-41a9-b481-4d82606cae69?action=share&source=collection_link&creator=29077056"
 	},
 	"item": [
 		{
@@ -132,6 +132,37 @@
 						"rest",
 						"cliente",
 						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cliente - Filtrar",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"nomeCliente\": \"Paulo Mendes\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/projeto-mtv/rest/cliente/filtrar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto-mtv",
+						"rest",
+						"cliente",
+						"filtrar"
 					]
 				}
 			},
@@ -268,6 +299,37 @@
 			"response": []
 		},
 		{
+			"name": "Peça - Filtrar",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"tipo\": \"prato\",\r\n    \"cliente\": \"Tati\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/projeto-mtv/rest/peca/filtrar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto-mtv",
+						"rest",
+						"peca",
+						"filtrar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Queima - Salvar",
 			"request": {
 				"method": "POST",
@@ -303,8 +365,17 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:8080/projeto-mtv/rest/queima/excluir/6",
+					"raw": "http://localhost:8080/projeto-mtv/rest/queima/6",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -314,7 +385,6 @@
 						"projeto-mtv",
 						"rest",
 						"queima",
-						"excluir",
 						"6"
 					]
 				}
@@ -398,13 +468,44 @@
 			"response": []
 		},
 		{
+			"name": "Queima - Filtrar",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"pago\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/projeto-mtv/rest/queima/filtrar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto-mtv",
+						"rest",
+						"queima",
+						"filtrar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Tipo - Salvar",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"nome\": \"Caixinha\"\r\n}",
+					"raw": "{\r\n  \"nome\": \"Prato\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
