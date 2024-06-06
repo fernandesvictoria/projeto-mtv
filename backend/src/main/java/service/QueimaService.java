@@ -6,6 +6,7 @@ import exception.CeramicaException;
 import model.entity.Peca;
 import model.entity.Queima;
 import model.repository.QueimaRepository;
+import model.seletor.QueimaSeletor;
 
 public class QueimaService {
 	private QueimaRepository repository = new QueimaRepository();
@@ -49,5 +50,9 @@ public class QueimaService {
 
 	public List<Queima> consultarTodos() {
 		return repository.consultarTodos();
+	}
+
+	public List<Queima> consultarComFiltros(QueimaSeletor seletor) {
+		return repository.consultarComFiltros(seletor);
 	}
 }

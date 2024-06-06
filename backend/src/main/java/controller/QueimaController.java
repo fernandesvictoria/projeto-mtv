@@ -13,6 +13,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import model.entity.Queima;
+import model.seletor.QueimaSeletor;
 import service.QueimaService;
 
 @Path("/queima")
@@ -51,7 +52,15 @@ public class QueimaController {
 	@GET
 	@Path("/consultar/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Queima consultarPorId(@PathParam("id") int id) throws CeramicaException {
+	public Queima consultarPorId(@PathParam("id") 	int id) throws CeramicaException {
 		return service.consultarPorId(id);
+	}
+
+	@POST
+	@Path("/filtrar")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Queima> consultarComFiltros(QueimaSeletor seletor) {
+		return service.consultarComFiltros(seletor);
 	}
 }
