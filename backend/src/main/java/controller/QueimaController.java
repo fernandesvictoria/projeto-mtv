@@ -17,7 +17,6 @@ import service.QueimaService;
 
 @Path("/queima")
 public class QueimaController {
-	
 	private QueimaService service = new QueimaService();
 
 	@POST

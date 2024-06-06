@@ -1,64 +1,53 @@
 package service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import exception.CeramicaException;
+import model.entity.Peca;
 import model.entity.Queima;
 import model.repository.QueimaRepository;
 
 public class QueimaService {
-
 	private QueimaRepository repository = new QueimaRepository();
 
-	public Queima salvar(Queima queima) throws CeramicaException {
-		validarQueima(queima);
-		return repository.salvar(queima);
+	public Queima salvar(Queima novaQueima) throws CeramicaException {
+		if (novaQueima.getPeca() == null || novaQueima.getPeca().getIdPeca() <= 0) {
+			throw new CeramicaException("Peça inválida para a queima.");
+		}
+
+		// RN52: Adicionar valor da queima ao valor total da peça
+		Peca peca = novaQueima.getPeca();
+		peca.setValorTotal(peca.getValorTotal() + novaQueima.getPrecoQueima());
+
+		return repository.salvar(novaQueima);
 	}
 
 	public boolean excluir(int id) throws CeramicaException {
-		if (id <= 0) {
-			throw new CeramicaException("ID inválido para exclusão.");
+		Queima queima = repository.consultarPorId(id);
+		if (queima == null) {
+			throw new CeramicaException("Queima não encontrada.");
 		}
+
+		// RN52: Remover valor da queima do valor total da peça
+		Peca peca = queima.getPeca();
+		peca.setValorTotal(peca.getValorTotal() - queima.getPrecoQueima());
+
 		return repository.excluir(id);
 	}
 
-	public boolean alterar(Queima queima) throws CeramicaException {
-		validarQueima(queima);
-		return repository.alterar(queima);
+	public boolean alterar(Queima queimaAlterada) throws CeramicaException {
+		if (queimaAlterada.getPeca() == null || queimaAlterada.getPeca().getIdPeca() <= 0) {
+			throw new CeramicaException("Peça inválida para a queima.");
+		}
+
+		return repository.alterar(queimaAlterada);
 	}
 
 	public Queima consultarPorId(int id) throws CeramicaException {
-		if (id <= 0) {
-			throw new CeramicaException("ID inválido para consulta.");
-		}
 		return repository.consultarPorId(id);
 	}
 
-	public ArrayList<Queima> consultarTodos() {
+	public List<Queima> consultarTodos() {
 		return repository.consultarTodos();
-	}
-
-	private void validarQueima(Queima queima) throws CeramicaException {
-		if (queima == null) {
-			throw new CeramicaException("Queima não pode ser nula.");
-		}
-		if (queima.getDataQueima() == null) {
-			throw new CeramicaException("Data da queima não pode ser nula.");
-		}
-		if (queima.getTipoQueima() == null) {
-			throw new CeramicaException("Tipo de queima não pode ser vazio.");
-		}
-		if (queima.getTemperaturaAlcancada() <= 0) {
-			throw new CeramicaException("Temperatura alcançada deve ser positiva.");
-		}
-		if (queima.getPeca() == null) {
-			throw new CeramicaException("Peça associada à queima não pode ser nula.");
-		}
-		if (queima.getForno() == null || queima.getForno().isEmpty()) {
-			throw new CeramicaException("Forno não pode ser vazio.");
-		}
-		if (queima.getPrecoQueima() < 0) {
-			throw new CeramicaException("Preço da queima não pode ser negativo.");
-		}
 	}
 }
