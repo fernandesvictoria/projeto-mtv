@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import model.entity.Queima;
+import model.seletor.QueimaSeletor;
 
 public class QueimaRepository implements BaseRepository<Queima> {
 
@@ -150,6 +151,41 @@ public class QueimaRepository implements BaseRepository<Queima> {
 			}
 		} catch (SQLException erro) {
 			System.out.println("Erro ao consultar todas as queimas.");
+			System.out.println("Erro: " + erro.getMessage());
+		} finally {
+			Banco.closeResultSet(resultado);
+			Banco.closeStatement(stmt);
+			Banco.closeConnection(conn);
+		}
+		return queimas;
+	}
+
+	public ArrayList<Queima> consultarComFiltros(QueimaSeletor seletor) {
+		ArrayList<Queima> queimas = new ArrayList<>();
+		Connection conn = Banco.getConnection();
+		Statement stmt = Banco.getStatement(conn);
+
+		ResultSet resultado = null;
+		String query = seletor.buildQuery();
+
+		try {
+			resultado = stmt.executeQuery(query);
+			PecaRepository pecaRepository = new PecaRepository();
+			while (resultado.next()) {
+				Queima queima = new Queima();
+				queima.setIdQueima(resultado.getInt("ID_QUEIMA"));
+				queima.setDataQueima(resultado.getDate("DATA_QUEIMA"));
+				queima.setTipoQueima(resultado.getString("TIPO_QUEIMA"));
+				queima.setTemperaturaAlcancada(resultado.getInt("TEMPERATURA_ALCANCADA"));
+				queima.setPeca(pecaRepository.consultarPorId(resultado.getInt("ID_PECA")));
+				queima.setForno(resultado.getString("FORNO"));
+				queima.setPrecoQueima(resultado.getDouble("PRECO_QUEIMA"));
+				queima.setPago(resultado.getBoolean("PAGO"));
+
+				queimas.add(queima);
+			}
+		} catch (SQLException erro) {
+			System.out.println("Erro ao consultar queimas com filtros.");
 			System.out.println("Erro: " + erro.getMessage());
 		} finally {
 			Banco.closeResultSet(resultado);
