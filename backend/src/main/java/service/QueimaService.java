@@ -3,6 +3,7 @@ package service;
 import java.util.List;
 
 import exception.CeramicaException;
+import model.entity.Peca;
 import model.entity.Queima;
 import model.repository.QueimaRepository;
 
@@ -10,7 +11,14 @@ public class QueimaService {
 	private QueimaRepository repository = new QueimaRepository();
 
 	public Queima salvar(Queima novaQueima) throws CeramicaException {
-		validarQueima(novaQueima);
+		if (novaQueima.getPeca() == null || novaQueima.getPeca().getIdPeca() <= 0) {
+			throw new CeramicaException("Peça inválida para a queima.");
+		}
+
+		// RN52: Adicionar valor da queima ao valor total da peça
+		Peca peca = novaQueima.getPeca();
+		peca.setValorTotal(peca.getValorTotal() + novaQueima.getPrecoQueima());
+
 		return repository.salvar(novaQueima);
 	}
 
@@ -19,24 +27,18 @@ public class QueimaService {
 	}
 
 	public boolean alterar(Queima queimaAlterada) throws CeramicaException {
-		validarQueima(queimaAlterada);
-		return repository.alterar(queimaAlterada);
-	}
+		if (queimaAlterada.getPeca() == null || queimaAlterada.getPeca().getIdPeca() <= 0) {
+			throw new CeramicaException("Peça inválida para a queima.");
+		}
 
-	public List<Queima> consultarTodos() {
-		return repository.consultarTodos();
+		return repository.alterar(queimaAlterada);
 	}
 
 	public Queima consultarPorId(int id) throws CeramicaException {
 		return repository.consultarPorId(id);
 	}
 
-	private void validarQueima(Queima queima) throws CeramicaException {
-		if (queima.getDataQueima() == null) {
-			throw new CeramicaException("Data da queima não pode ser nula.");
-		}
-		if (queima.getPeca() == null || queima.getPeca().getIdPeca() == 0) {
-			throw new CeramicaException("Peça associada à queima não pode ser nula.");
-		}
+	public List<Queima> consultarTodos() {
+		return repository.consultarTodos();
 	}
 }
