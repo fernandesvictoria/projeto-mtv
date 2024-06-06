@@ -23,6 +23,15 @@ public class QueimaService {
 	}
 
 	public boolean excluir(int id) throws CeramicaException {
+		Queima queima = repository.consultarPorId(id);
+		if (queima == null) {
+			throw new CeramicaException("Queima não encontrada.");
+		}
+
+		// RN52: Remover valor da queima do valor total da peça
+		Peca peca = queima.getPeca();
+		peca.setValorTotal(peca.getValorTotal() - queima.getPrecoQueima());
+
 		return repository.excluir(id);
 	}
 
