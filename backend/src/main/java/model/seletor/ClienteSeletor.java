@@ -30,4 +30,5 @@ public class ClienteSeletor {
 		this.cpf = cpf;
 	}
 	
+	
 }
