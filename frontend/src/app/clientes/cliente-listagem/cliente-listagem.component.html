@@ -1,1 +1,33 @@
-<p>cliente-listagem works!</p>
+<!-- <pre>{{clientes | json}}</pre> -->
+<div class="container">
+  <h3 class="mt-4"> Listagem de Clientes </h3>
+
+  <div>
+    <div>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Cliente</th>
+            <th>Tamanho</th>
+            <th>Tipo</th>
+            <th>Descrição</th>
+            <th>Estágio</th>
+            <th>Valor Total</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for(cliente of clientes; track cliente){
+          <tr>
+            <td>{{ cliente.nome }}</td>
+            <td>{{ cliente.cpf }}</td>
+            <td>{{ cliente.telefone }}</td>
+          </tr>
+          }
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+</div>
