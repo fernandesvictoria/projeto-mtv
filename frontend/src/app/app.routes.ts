@@ -7,5 +7,12 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./pecas/pecas.module').then((m) => m.PecasModule)
   },
-  
+
+  { path: '', redirectTo: 'clientes', pathMatch: 'full'},
+  {
+    path: 'clientes',
+    loadChildren: () =>
+      import('./clientes/clientes.module').then((m) => m.ClientesModule)
+  }
+
 ];
