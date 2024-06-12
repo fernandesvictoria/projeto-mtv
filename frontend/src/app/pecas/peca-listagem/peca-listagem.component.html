@@ -2,6 +2,7 @@
 <div class="container">
   <h3 class="mt-4"> Listagem de Peças </h3>
 
+
   <div>
     <div>
       <table class="table table-striped">
@@ -26,7 +27,7 @@
             <td>{{ peca.tipo.nome }}</td>
             <td>{{ peca.descricao }}</td>
             <td>{{ peca.estagio }}</td>
-            <td>{{ peca.valorTotal }}</td>
+            <td>{{ peca.valorTotal | currency: "R$ " }}</td>
           </tr>
           }
         </tbody>
