@@ -3,6 +3,7 @@ import { ClientesService } from '../../shared/service/clientes.service';
 import { Cliente } from '../../shared/model/cliente';
 import Swal from 'sweetalert2';
 import { ClienteSeletor } from '../../shared/seletor/cliente.seletor';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cliente-listagem',
@@ -10,7 +11,7 @@ import { ClienteSeletor } from '../../shared/seletor/cliente.seletor';
   styleUrl: './cliente-listagem.component.scss',
 })
 export class ClienteListagemComponent implements OnInit {
-  constructor(private clienteService: ClientesService) {}
+  constructor(private clienteService: ClientesService,private router : Router) {}
 
   public clientes: Array<Cliente> = [];
   public seletor: ClienteSeletor = new ClienteSeletor();
