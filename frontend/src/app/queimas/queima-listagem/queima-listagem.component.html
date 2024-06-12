@@ -1,28 +1,34 @@
-<div>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Data da Queima</th>
-        <th>Tipo de Queima</th>
-        <th>Temperatura Alcançada</th>
-        <th>Peça</th>
-        <th>Forno</th>
-        <th>Preço</th>
-        <th>Pago</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let queima of queimas">
-        <td>{{ queima.idQueima }}</td>
-        <td>{{ queima.dataQueima | date: 'dd/MM/yyyy' }}</td>
-        <td>{{ queima.tipoQueima }}</td>
-        <td>{{ queima.temperaturaAlcancada }}</td>
-        <td>{{ queima.peca }}</td>
-        <td>{{ queima.forno }}</td>
-        <td>{{ queima.preco }}</td>
-        <td>{{ queima.pago }}</td>
-      </tr>
-    </tbody>
-  </table>
+<div class="container">
+  <h3 class="mt-4">Listagem de Queimas</h3>
+
+  <div>
+    <div>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID Queima</th>
+            <th>Data</th>
+            <th>Tipo</th>
+            <th>Peça</th>
+            <th>Forno</th>
+            <th>Preço</th>
+            <th>Pago</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let queima of queimas; trackBy: trackById">
+            <td>{{ queima.idQueima }}</td>
+            <td>{{ queima.dataQueima | date:'dd/MM/yyyy' }}</td>
+            <td>{{ queima.tipoQueima }}</td>
+            <td>{{ queima.peca.descricao }}</td>
+            <td>{{ queima.forno }}</td>
+            <td>{{ queima.precoQueima | currency:'BRL':'symbol':'1.2-2' }}</td>
+            <td>{{ queima.pago ? 'Sim' : 'Não' }}</td>
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+  </div>
 </div>

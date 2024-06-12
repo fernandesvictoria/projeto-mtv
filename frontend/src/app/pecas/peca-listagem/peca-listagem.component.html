@@ -1,0 +1,37 @@
+<!-- <pre>{{pecas | json}}</pre> -->
+<div class="container">
+  <h3 class="mt-4"> Listagem de Peças </h3>
+
+  <div>
+    <div>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Cliente</th>
+            <th>Tamanho</th>
+            <th>Tipo</th>
+            <th>Descrição</th>
+            <th>Estágio</th>
+            <th>Valor Total</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for(peca of pecas; track peca){
+          <tr>
+            <td>{{ peca.idPeca }}</td>
+            <td>{{ peca.cliente.nome }}</td>
+            <td>{{ peca.tamanho }}</td>
+            <td>{{ peca.tipo.nome }}</td>
+            <td>{{ peca.descricao }}</td>
+            <td>{{ peca.estagio }}</td>
+            <td>{{ peca.valorTotal }}</td>
+          </tr>
+          }
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+</div>

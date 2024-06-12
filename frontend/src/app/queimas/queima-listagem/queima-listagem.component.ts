@@ -1,58 +1,56 @@
 import { Component, OnInit } from '@angular/core';
-
-export interface Queima {
-  idQueima: number;
-  dataQueima: Date;
-  tipoQueima: string;
-  temperaturaAlcancada: number;
-  peca: string;
-  forno: string;
-  precoQueima: number;
-  pago: boolean;
-}
+import { Queima } from '../../shared/model/queima';
+import { QueimasService } from '../../shared/service/queimas.service';
+import { QueimaSeletor } from '../../shared/seletor/queima.seletor';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-queima-listagem',
   templateUrl: './queima-listagem.component.html',
-  styleUrl: './queima-listagem.component.scss'
+  styleUrls: ['./queima-listagem.component.scss'],
 })
-
 export class QueimaListagemComponent implements OnInit {
+  constructor(private queimasService: QueimasService) { }
 
-  public queimas: Queima[] = [
-    {
-      idQueima: 1,
-      dataQueima: new Date('2024-06-01'),
-      tipoQueima: 'Queima Rápida',
-      temperaturaAlcancada: 800,
-      peca: 'Vaso de cerâmica',
-      forno: 'Forno A',
-      precoQueima: 50.00,
-      pago: true
-    },
-    {
-      idQueima: 2,
-      dataQueima: new Date('2024-05-25'),
-      tipoQueima: 'Queima Lenta',
-      temperaturaAlcancada: 1200,
-      peca: 'Estátua de bronze',
-      forno: 'Forno B',
-      precoQueima: 120.00,
-      pago: false
-    },
-    {
-      idQueima: 3,
-      dataQueima: new Date('2024-06-05'),
-      tipoQueima: 'Queima Normal',
-      temperaturaAlcancada: 1000,
-      peca: 'Prato de porcelana',
-      forno: 'Forno C',
-      precoQueima: 30.00,
-      pago: true
-    }]
-
-  constructor() { }
+  public queimas: Array<Queima> = [];
+  public seletor: QueimaSeletor = new QueimaSeletor();
 
   ngOnInit(): void {
+    this.consultarTodasQueimas();
   }
+
+  public consultarTodasQueimas(): void {
+    this.queimasService.consultarTodasQueimas().subscribe(
+      (resultado) => {
+        this.queimas = resultado;
+      },
+      (erro) => {
+        Swal.fire({
+          title: 'Erro!',
+          text: 'Erro ao consultar todas as queimas: ' + erro.error.mensagem,
+          icon: 'error',
+        });
+      }
+    );
+  }
+
+  public limpar() {
+    this.seletor = new QueimaSeletor();
+  }
+
+  public pesquisar() {
+    this.queimasService.filtrarQueimas(this.seletor).subscribe(
+      (resultado) => {
+        this.queimas = resultado;
+      },
+      (erro) => {
+        console.error('Erro ao consultar queimas', erro);
+      }
+    );
+  }
+
+  trackById(index: number, queima: Queima): number {
+    return queima.idQueima;
+  }
+
 }

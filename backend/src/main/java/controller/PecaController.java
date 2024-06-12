@@ -13,6 +13,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import model.entity.Peca;
+import model.seletor.PecaSeletor;
 import service.PecaService;
 
 
@@ -54,4 +55,13 @@ public class PecaController {
 	public Peca consultarPorId(@PathParam("id") int id){
 		 return service.consultarPorId(id);
 	}
+	
+	@POST
+	@Path("/filtrar")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Peca> consultarComFiltros(PecaSeletor seletor) {
+		return service.consultarComFiltros(seletor);
+	}
+	
 }

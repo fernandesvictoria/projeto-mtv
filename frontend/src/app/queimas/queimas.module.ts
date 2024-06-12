@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { QueimasRoutingModule } from './vacinas-routing.module';
-import { QueimaListagemComponent } from './vacina-listagem/vacina-listagem.component';
+import { QueimasRoutingModule } from './queimas-routing.module';
+import { QueimaListagemComponent } from './queima-listagem/queima-listagem.component';
 
 @NgModule({
   declarations: [
