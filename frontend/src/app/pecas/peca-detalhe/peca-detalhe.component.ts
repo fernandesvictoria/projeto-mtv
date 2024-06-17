@@ -8,29 +8,28 @@ import { Cliente } from '../../shared/model/cliente';
 import { Tipo } from '../../shared/model/tipo';
 import { EstagioPeca } from '../../shared/model/enum/estagio-peca';
 import { Tamanho } from '../../shared/model/enum/tamanho';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-peca-detalhe',
   templateUrl: './peca-detalhe.component.html',
-  styleUrl: './peca-detalhe.component.scss'
+  styleUrl: './peca-detalhe.component.scss',
 })
-export class PecaDetalheComponent implements OnInit{
-
-
+export class PecaDetalheComponent implements OnInit {
   public peca: Peca = new Peca();
   public pecas: Array<Peca> = [];
   public estagios: Array<string> = [];
   public tamanhos: Array<string> = [];
   public clientes: Array<Cliente> = [];
   public tipos: Array<Tipo> = [];
-
+  public idPeca: number;
 
   constructor(
     private pecaService: PecasService,
     private clienteService: ClientesService,
     private tipoService: TipoServiceService,
     private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -38,6 +37,7 @@ export class PecaDetalheComponent implements OnInit{
     this.carregarEstagios();
     this.consultarTodosTipos();
     this.carregarTamanhos();
+    this.hasIdPeca();
   }
 
   private consultarTodosClientes() {
@@ -55,12 +55,25 @@ export class PecaDetalheComponent implements OnInit{
     );
   }
 
+  private hasIdPeca(): void {
+    this.route.params.subscribe((params) => {
+      this.idPeca = params['id'];
+      if (this.idPeca) {
+        this.consultarPecaPorId();
+      }
+    });
+  }
+
   private carregarEstagios(): void {
-    this.estagios = Object.values(EstagioPeca).filter((value) => typeof value === 'string') as string[];
+    this.estagios = Object.values(EstagioPeca).filter(
+      (value) => typeof value === 'string'
+    ) as string[];
   }
 
   private carregarTamanhos(): void {
-    this.tamanhos = Object.values(Tamanho).filter((value) => typeof value === 'string') as string[];
+    this.tamanhos = Object.values(Tamanho).filter(
+      (value) => typeof value === 'string'
+    ) as string[];
   }
 
   private consultarTodosTipos(): void {
@@ -78,12 +91,13 @@ export class PecaDetalheComponent implements OnInit{
     );
   }
 
-  salvar() {
-    // if (this.idVacina) {
-    //   this.editarVacina();
-    // } else {
+  public salvar() {
+    if (this.idPeca) {
+      this.editarPeca();
+    } else {
       this.salvarNovaPeca();
     }
+  }
 
   public salvarNovaPeca(): void {
     this.pecaService.salvarPeca(this.peca).subscribe(
@@ -93,7 +107,7 @@ export class PecaDetalheComponent implements OnInit{
           icon: 'success',
           text: 'Peça salva com sucesso!',
           showCancelButton: true,
-          confirmButtonText:'Nova Peça',
+          confirmButtonText: 'Nova Peça',
           cancelButtonText: 'Voltar',
         }).then((resultado) => {
           if (resultado.isConfirmed) {
@@ -113,10 +127,40 @@ export class PecaDetalheComponent implements OnInit{
     );
   }
 
-  public compareById (r1: any, r2: any): boolean {
+  private editarPeca(): void {
+    this.pecaService.editarPeca(this.peca).subscribe(
+      (r) => {
+        Swal.fire('Peça atualizada com sucesso!', '', 'success');
+        this.voltar();
+      },
+      (e) => {
+        Swal.fire('Erro ao atualizar peça: ' + e.error.mensagem, 'error');
+      }
+    );
+  }
+
+  private consultarPecaPorId() {
+    this.pecaService.consultarPecaPorId(this.idPeca).subscribe(
+      (r) => {
+        this.peca = r;
+      },
+      (e) => {
+        Swal.fire({
+          title: 'Erro!',
+          text: 'Erro ao consultar todos os clientes: ' + e.error.mensagem,
+          icon: 'error',
+        });
+      }
+    );
+  }
+
+  public compareById(r1: any, r2: any): boolean {
     return r1 && r2 ? r1.id === r2.id : r1 === r2;
   }
   public voltar(): void {
     this.router.navigate(['/pecas/']);
   }
+
+ 
+
 }

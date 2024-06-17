@@ -140,5 +140,11 @@ export class PecaListagemComponent implements OnInit {
       }
     });
   }
+  public detalhe(): void {
+    this.router.navigate(['/pecas/detalhe']);
+  }
 
+  public novoTipo(): void {
+    this.router.navigate(['/tipo']);
+  }
 }

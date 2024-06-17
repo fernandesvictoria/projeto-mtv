@@ -1,13 +1,13 @@
 <!-- <pre>{{pecas | json}}</pre> -->
-<div class="card">
-  <div class="card-header" style="background-color: #80ba7a;">
-    <h5 class="text-white">
-      <i class="bi bi-hearts"></i> Listagem de Peças
-    </h5>
-  </div>
+<div class="container mb-5 mt-5">
+  <div class="card">
+    <div class="card-header" style="background-color: #80ba7a;">
+      <h5 class="text-white">
+        Listagem de Peças
+      </h5>
+    </div>
 
-  <div class="container">
-    <div class="card-body">
+    <div class="card-body ">
 
       <form class="">
         <div class="row">
@@ -55,10 +55,35 @@
             </button>
           </div>
 
+          <div class="col-md-2">
+          </div>
+          
+          <div class="col-md-2">
+          </div>
+
+          <div class="col-md-2">
+            <label for="nome">&nbsp;</label>
+            <button type="button" class="form-control btn btn-outline-dark" (click)="detalhe()">
+              Cadastrar nova peça
+            </button>
+          </div>
+
+          <div class="col-md-2">
+            <label for="nome">&nbsp;</label>
+            <button type="button" class="form-control btn btn-outline-dark" (click)="novoTipo()">
+              Cadastrar novo tipo
+            </button>
+          </div>
+
         </div>
 
       </form>
     </div>
+  </div>
+
+  <div class="card mt-3">
+
+
     <div class="card-body">
 
 
@@ -104,7 +129,11 @@
           }
         </tbody>
       </table>
+
+      <div class="row">
+
+
+      </div>
     </div>
   </div>
-
 </div>
