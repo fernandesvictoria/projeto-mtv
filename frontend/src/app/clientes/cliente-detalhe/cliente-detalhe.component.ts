@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientesService } from '../../shared/service/clientes.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Cliente } from '../../shared/model/cliente';
 import Swal from 'sweetalert2';
 
@@ -10,12 +10,22 @@ import Swal from 'sweetalert2';
   styleUrl: './cliente-detalhe.component.scss',
 })
 export class ClienteDetalheComponent implements OnInit {
-  constructor(private service: ClientesService, private router: Router) {}
-
+  constructor(
+    private service: ClientesService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   public cliente: Cliente = new Cliente();
-  
-  ngOnInit(): void {}
+
+  ngOnInit(): void {
+    this.route.params.subscribe((params) => {
+      const idCliente = params['id'];
+      if (idCliente) {
+        this.consultarClienteId(idCliente);
+      }
+    });
+  }
 
   public salvarNovoCliente() {
     this.service.salvar(this.cliente).subscribe(
@@ -24,11 +34,20 @@ export class ClienteDetalheComponent implements OnInit {
         Swal.fire('Cliente salvo com sucesso!');
       },
       (erro) => {
-        Swal.fire({
-          icon: 'error',
-          text: 'Erro ao salvar novo cliente.',
-        });
-        console.error('Erro ao salvar novo cliente.', erro);
+        if (erro.error.mensagem.includes('CPF')) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Erro ao salvar novo cliente',
+            text: erro.error.mensagem,
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Erro ao salvar novo cliente',
+            text: 'Erro inesperado ao tentar salvar o cliente.',
+          });
+        }
+        console.error('Erro ao salvar novo cliente.', erro.error.mensagem);
       }
     );
   }
@@ -36,16 +55,31 @@ export class ClienteDetalheComponent implements OnInit {
   private editarCliente(): void {
     this.service.editar(this.cliente).subscribe(
       (resposta) => {
-      Swal.fire('Cliente atualizado com sucesso!', '', 'success');
-      this.voltar();
-    },
-    (erro) => {
-      Swal.fire('Erro ao atualizar cliente: ' + erro.error.mensagem, 'error')
-    }
-  );
+        Swal.fire('Cliente atualizado com sucesso!', '', 'success');
+        this.voltar();
+      },
+      (erro) => {
+        Swal.fire('Erro ao atualizar cliente: ' + erro.error.mensagem, 'error');
+      }
+    );
+  }
+
+  public consultarClienteId(idCliente: number): void {
+    this.service.consultarClienteId(idCliente).subscribe(
+      (cliente) => {
+        this.cliente = cliente; // Atribui o cliente recebido à propriedade cliente
+      },
+      (erro) => {
+        Swal.fire('Erro ao consultar cliente.', erro, 'error');
+      }
+    );
   }
 
   public voltar(): void {
     this.router.navigate(['/clientes']);
+  }
+
+  public compareById(r1: any, r2: any): boolean {
+    return r1 && r2 ? r1.id === r2.id : r1 === r2;
   }
 }

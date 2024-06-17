@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-header" style="background-color: #80ba7a;">
     <h5 class="text-white">
-      <i class="bi bi-brush"></i> Buscar Clientes Cadastrados
+      <i class="bi bi-person"></i> Clientes
     </h5>
   </div>
   <div class="card-body">
@@ -51,6 +51,19 @@
           <td>{{ cliente.nome }}</td>
           <td>{{ cliente.cpf }}</td>
           <td>{{ cliente.telefone }}</td>
+          <td>
+            <div class="row">
+              <div>
+                <button type="button" class="btn btn-outline-dark" (click)="editar(cliente.idCliente)">
+                  <i class="bi bi-pencil"></i> Editar
+                </button>
+                &nbsp;
+                <button type="button" class="btn btn-outline-danger" (click)="excluir(cliente.idCliente)">
+                  <i class="bi bi-trash3"></i> Excluir
+                </button>
+              </div>
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>
