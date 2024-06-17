@@ -51,6 +51,19 @@
           <td>{{ cliente.nome }}</td>
           <td>{{ cliente.cpf }}</td>
           <td>{{ cliente.telefone }}</td>
+          <td>
+            <div class="row">
+              <div>
+                <button type="button" class="btn btn-outline-dark" (click)="editar(cliente.idCliente)">
+                  <i class="bi bi-pencil"></i> Editar
+                </button>
+                &nbsp;
+                <button type="button" class="btn btn-outline-danger" (click)="excluir(cliente.idCliente)">
+                  <i class="bi bi-trash3"></i> Excluir
+                </button>
+              </div>
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>

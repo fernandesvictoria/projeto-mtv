@@ -21,7 +21,7 @@ export class ClientesService {
     return this.httpClient.post<Array<Cliente>>(this.API + '/filtrar', seletor);
   }
 
-  consultarVacinaID(idCliente: number): Observable<Cliente> {
+  consultarClienteId(idCliente: number): Observable<Cliente> {
     return this.httpClient.get<Cliente>(this.API + '/consultar/' + idCliente )
   }
 
@@ -38,4 +38,6 @@ export class ClientesService {
   editar(clienteEditado: Cliente): Observable<boolean>{
     return this.httpClient.put<boolean>(this.API + '/alterar', clienteEditado)
   }
+
+
 }

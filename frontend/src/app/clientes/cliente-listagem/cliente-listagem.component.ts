@@ -27,7 +27,7 @@ export class ClienteListagemComponent implements OnInit {
       (erro) => {
         Swal.fire({
           title: 'Erro!',
-          text: 'Erro ao consultar todas os clientes.: ' + erro.error.mensagem,
+          text: 'Erro ao consultar todos os clientes.: ' + erro.error.mensagem,
           icon: 'error',
         });
       }
@@ -48,4 +48,44 @@ export class ClienteListagemComponent implements OnInit {
       }
     );
   }
+
+
+  public editar(idCliente: number): void {
+    this.router.navigate(['/clientes/detalhe/', idCliente]);
+  }
+
+  public excluir(id: number) {
+    Swal.fire({
+      title: 'Você deseja excluir?',
+      text: 'Não será possível reverter a exclusão!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Sim, continue!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.clienteService.excluir(id).subscribe(
+          (resultado) => {
+            Swal.fire({
+              title: 'Excluído!',
+              text: 'Cliente excluído com sucesso!',
+              icon: 'success',
+            });
+            this.pesquisar();
+          },
+          (erro) => {
+            Swal.fire({
+              title: 'Atenção!',
+              text: 'Erro ao excluir cliente: ' + erro.error.mensagem,
+              icon: 'error',
+            });
+          }
+        );
+      }
+    });
+  }
+
+
 }
