@@ -41,15 +41,24 @@ public class PecaService {
 	}
 
 	private void validarPeca(Peca peca) throws CeramicaException {
-		if (peca == null) {
-			throw new CeramicaException("Queima não pode ser nula.");
+		
+		if (peca.getCliente() == null) {
+			throw new CeramicaException("Selecione um cliente!");
+		}
+		if (peca.getTipo() == null) {
+			throw new CeramicaException("Selecione um tipo!");
 		}
 		if (peca.getTamanho() == null) {
-			throw new CeramicaException("Data da queima não pode ser nula.");
+			throw new CeramicaException("Selecione um tamanho!");
 		}
 		if (peca.getEstagio() == null) {
-			throw new CeramicaException("Tipo de queima não pode ser vazio.");
+			throw new CeramicaException("Selecione um estágio!");
 		}
 	}
+	
+	public void atualizarValorTotal(int idPeca, double soma) {
+		repository.atualizarValorTotal(idPeca, soma);
+	}
+	
 
 }

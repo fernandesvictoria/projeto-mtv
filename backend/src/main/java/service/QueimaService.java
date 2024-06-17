@@ -17,8 +17,11 @@ public class QueimaService {
 		}
 
 		// RN52: Adicionar valor da queima ao valor total da peça
-		Peca peca = novaQueima.getPeca();
-		peca.setValorTotal(peca.getValorTotal() + novaQueima.getPrecoQueima());
+		
+		double soma = repository.calcularValorPeca(novaQueima.getPeca().getIdPeca());
+		
+		PecaService pecaService = new PecaService();
+		pecaService.atualizarValorTotal(novaQueima.getPeca().getIdPeca(), soma);
 
 		return repository.salvar(novaQueima);
 	}

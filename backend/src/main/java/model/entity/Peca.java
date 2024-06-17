@@ -1,7 +1,5 @@
 package model.entity;
 
-import java.util.List;
-
 import model.entity.enums.EstagioPeca;
 import model.entity.enums.Tamanho;
 
@@ -77,15 +75,7 @@ public class Peca {
 	public double getValorTotal() {
 		return valorTotal;
 	}
-
-	public void calcularPrecoTotal(List<Queima> queimas) {
-		double precoTotal = 0.0;
-		for (Queima queima : queimas) {
-			precoTotal += queima.getPrecoQueima();
-		}
-		this.setValorTotal(precoTotal);
-	}
-
+	
 	public void setValorTotal(double valorTotal) {
 		this.valorTotal = valorTotal;
 	}
