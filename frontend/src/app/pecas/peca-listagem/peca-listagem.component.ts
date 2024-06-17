@@ -8,6 +8,7 @@ import { EstagioPeca } from '../../shared/model/enum/estagio-peca';
 import { ClientesService } from '../../shared/service/clientes.service';
 import { Tipo } from '../../shared/model/tipo';
 import { TipoServiceService } from '../../shared/service/tipo-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-peca-listagem',
@@ -25,6 +26,7 @@ export class PecaListagemComponent implements OnInit {
     private pecaService: PecasService,
     private clienteService: ClientesService,
     private tipoService: TipoServiceService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -101,4 +103,42 @@ export class PecaListagemComponent implements OnInit {
   public limpar(): void {
     this.consultarTodasPecas();
   }
+
+  public editar(idPecaEditar: number): void {
+    this.router.navigate(['/pecas/detalhe/', idPecaEditar]);
+  }
+
+  public excluir(id: number): void {
+    Swal.fire({
+      title: 'Você deseja excluir?',
+      text: 'Não será possível reverter a exclusão!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Sim, continue!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.pecaService.excluirPeca(id).subscribe(
+          (r) => {
+            Swal.fire({
+              title: 'Excluída!',
+              text: 'A peça foi excluída com sucesso!',
+              icon: 'success',
+            });
+            this.consultarTodasPecas();
+          },
+          (erro) => {
+            Swal.fire({
+              title: 'Atenção!',
+              text: 'Erro ao excluir vacina: ' + erro.error.mensagem,
+              icon: 'error',
+            });
+          }
+        );
+      }
+    });
+  }
+
 }

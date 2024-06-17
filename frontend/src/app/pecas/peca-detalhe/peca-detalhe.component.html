@@ -1,1 +1,69 @@
-<p>peca-detalhe works!</p>
+<!-- <pre>{{ peca | json }}</pre> -->
+
+<div class="card">
+  <div class="card-header" style="background-color: #80ba7a;">
+    <h5 class="text-white">
+      {{ peca.idPeca ? 'Edição ' : 'Cadastro '}}de Peças
+      </h5>
+      </div>
+
+      <div class="card-body">
+    <div class="container col-md-6">
+
+      <div>
+        <form class="mt-4">
+          <div class="mb-3">
+            <label for="cliente"> Cliente </label>
+            <select type="text" class="form-control" name="cliente" [compareWith]="compareById" [(ngModel)]="peca.cliente">
+              @for(c of clientes; track c){
+              <option [ngValue]= " c ">{{ c.nome }}</option>
+              }
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="tipo"> Tipo </label>
+            <select type="text" class="form-control" name="tipo" [compareWith]="compareById" [(ngModel)]="peca.tipo">
+              @for(t of tipos; track t) {
+              <option [ngValue]= " t ">{{ t.nome }}</option>
+              }
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="descricao"> Descrição </label>
+            <input type="text" class="form-control" name="descricao" [(ngModel)]="peca.descricao">
+          </div>
+
+          <div class="mb-3">
+            <label for="tamanho">Tamanho</label>
+            <select type="text" class="form-control" name="tamanho" [compareWith]="compareById" [(ngModel)]="peca.tamanho">
+              @for(t of tamanhos; track t) {
+              <option [ngValue]= "t" > {{ t }} </option>
+              }
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="estagio"> Estágio </label>
+            <select type="text" class="form-control" name="estagio" [compareWith]="compareById" [(ngModel)]="peca.estagio">
+              @for(e of estagios; track e) {
+              <option value="{{ e }}"> {{ e }} </option>
+              }
+            </select>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <button type="submit" class="btn btn-outline-success col-md-3" (click)="salvar()">Salvar</button>
+              &nbsp;
+              <button type="submit" class="btn btn-outline-dark col-md-3" (click)="voltar()">Voltar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+</div>

@@ -6,85 +6,105 @@
     </h5>
   </div>
 
-  <div class="card-body">
-    <div class="container">
-      <div>
-        <form class="">
-          <div class="row">
-            <div class="col-md-4">
-              <label for="cliente">Cliente</label>
-              <select type="text" class="form-control" name="cliente" [(ngModel)]="seletor.cliente">
-                @for(c of clientes; track c.idCliente){
-                <option value="{{ c.nome }}">{{ c.nome }}</option>
-                }
-              </select>
-            </div>
+  <div class="container">
+    <div class="card-body">
 
-            <div class="col-md-4">
-              <label for="estagio">Estágio</label>
-              <select type="text" class="form-control" name="estagio" [(ngModel)]="seletor.estagio">
-                @for(e of estagios; track e) {
-                <option value="{{ e }}">{{ e }}</option>
-                }
-              </select>
-            </div>
-
-            <div class="col-md-4">
-              <label for="tipo">Tipo</label>
-              <select type="text" class="form-control" name="tipo" [(ngModel)]="seletor.tipo">
-                @for(t of tipos; track t) {
-                <option value="{{ t.nome }}">{{ t.nome }}</option>
-                }
-              </select>
-            </div>
+      <form class="">
+        <div class="row">
+          <div class="col-md-4">
+            <label for="cliente">Cliente</label>
+            <select type="text" class="form-control" name="cliente" [(ngModel)]="seletor.cliente">
+              @for(c of clientes; track c.idCliente){
+              <option value="{{ c.nome }}">{{ c.nome }}</option>
+              }
+            </select>
           </div>
 
-          <div class="row">
-
-            <div class="col-md-2">
-              <label for="nome">&nbsp;</label>
-              <button type="button" class="form-control btn btn-outline-dark" (click)="consultarPecasComFiltros()">
-                <i class="bi bi-search"></i> Pesquisar
-              </button>
-            </div>
-
-            <div class="col-md-2">
-              <label for="nome">&nbsp;</label>
-              <button type="button" class="form-control btn btn-outline-dark" (click)="limpar()">
-                <i class="bi bi-x-circle"></i> Limpar
-              </button>
-            </div>
-
+          <div class="col-md-4">
+            <label for="estagio">Estágio</label>
+            <select type="text" class="form-control" name="estagio" [(ngModel)]="seletor.estagio">
+              @for(e of estagios; track e) {
+              <option value="{{ e }}"> {{ e }} </option>
+              }
+            </select>
           </div>
 
-        </form>
-      </div>
+          <div class="col-md-4">
+            <label for="tipo">Tipo</label>
+            <select type="text" class="form-control" name="tipo" [(ngModel)]="seletor.tipo">
+              @for(t of tipos; track t) {
+              <option value="{{ t.nome }}">{{ t.nome }}</option>
+              }
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+
+          <div class="col-md-2">
+            <label for="nome">&nbsp;</label>
+            <button type="button" class="form-control btn btn-outline-dark" (click)="consultarPecasComFiltros()">
+              <i class="bi bi-search"></i> Pesquisar
+            </button>
+          </div>
+
+          <div class="col-md-2">
+            <label for="nome">&nbsp;</label>
+            <button type="button" class="form-control btn btn-outline-dark" (click)="limpar()">
+              <i class="bi bi-x-circle"></i> Limpar
+            </button>
+          </div>
+
+        </div>
+
+      </form>
+    </div>
+    <div class="card-body">
+
+
       <table class="table table-striped">
         <thead>
           <tr>
-            <th>ID</th>
             <th>Cliente</th>
+            <th>Código</th>
             <th>Tamanho</th>
             <th>Tipo</th>
             <th>Descrição</th>
             <th>Estágio</th>
             <th>Valor Total</th>
+            <th>Ações</th>
+
           </tr>
         </thead>
         <tbody>
           @for(peca of pecas; track peca){
           <tr>
-            <td>{{ peca.idPeca }}</td>
             <td>{{ peca.cliente.nome }}</td>
+            <td>{{ peca.idPeca }}</td>
             <td>{{ peca.tamanho }}</td>
             <td>{{ peca.tipo.nome }}</td>
             <td>{{ peca.descricao }}</td>
             <td>{{ peca.estagio }}</td>
             <td>{{ peca.valorTotal | currency: "R$ " }}</td>
+
+            <td>
+              <div class="row">
+                <div>
+                  <button type="button" class="btn btn-outline-dark" (click)="editar(peca.idPeca)">
+                    <i class="bi bi-pencil"></i> Editar
+                  </button>
+                  &nbsp;
+                  <button type="button" class="btn btn-outline-danger" (click)="excluir(peca.idPeca)">
+                    <i class="bi bi-trash3"></i> Excluir
+                  </button>
+                </div>
+              </div>
+            </td>
           </tr>
           }
         </tbody>
       </table>
     </div>
   </div>
+
 </div>
