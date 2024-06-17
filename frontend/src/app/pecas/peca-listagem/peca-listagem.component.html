@@ -1,9 +1,64 @@
 <!-- <pre>{{pecas | json}}</pre> -->
-<div class="container">
-  <h3 class="mt-4"> Listagem de Peças </h3>
+<div class="card">
+  <div class="card-header" style="background-color: #80ba7a;">
+    <h5 class="text-white">
+      <i class="bi bi-hearts"></i> Listagem de Peças
+    </h5>
+  </div>
 
-  <div>
-    <div>
+  <div class="card-body">
+    <div class="container">
+      <div>
+        <form class="">
+          <div class="row">
+            <div class="col-md-4">
+              <label for="cliente">Cliente</label>
+              <select type="text" class="form-control" name="cliente" [(ngModel)]="seletor.cliente">
+                @for(c of clientes; track c.idCliente){
+                <option value="{{ c.nome }}">{{ c.nome }}</option>
+                }
+              </select>
+            </div>
+
+            <div class="col-md-4">
+              <label for="estagio">Estágio</label>
+              <select type="text" class="form-control" name="estagio" [(ngModel)]="seletor.estagio">
+                @for(e of estagios; track e) {
+                <option value="{{ e }}">{{ e }}</option>
+                }
+              </select>
+            </div>
+
+            <div class="col-md-4">
+              <label for="tipo">Tipo</label>
+              <select type="text" class="form-control" name="tipo" [(ngModel)]="seletor.tipo">
+                @for(t of tipos; track t) {
+                <option value="{{ t.nome }}">{{ t.nome }}</option>
+                }
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-2">
+              <label for="nome">&nbsp;</label>
+              <button type="button" class="form-control btn btn-outline-dark" (click)="consultarPecasComFiltros()">
+                <i class="bi bi-search"></i> Pesquisar
+              </button>
+            </div>
+
+            <div class="col-md-2">
+              <label for="nome">&nbsp;</label>
+              <button type="button" class="form-control btn btn-outline-dark" (click)="limpar()">
+                <i class="bi bi-x-circle"></i> Limpar
+              </button>
+            </div>
+
+          </div>
+
+        </form>
+      </div>
       <table class="table table-striped">
         <thead>
           <tr>
@@ -16,7 +71,6 @@
             <th>Valor Total</th>
           </tr>
         </thead>
-
         <tbody>
           @for(peca of pecas; track peca){
           <tr>
@@ -26,11 +80,10 @@
             <td>{{ peca.tipo.nome }}</td>
             <td>{{ peca.descricao }}</td>
             <td>{{ peca.estagio }}</td>
-            <td>{{ peca.valorTotal }}</td>
+            <td>{{ peca.valorTotal | currency: "R$ " }}</td>
           </tr>
           }
         </tbody>
-
       </table>
     </div>
   </div>
