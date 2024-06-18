@@ -194,5 +194,34 @@ public class QueimaRepository implements BaseRepository<Queima> {
 			Banco.closeConnection(conn);
 		}
 		return queimas;
+		
+		
+	}
+	
+	public double calcularValorPeca(int idPeca) {
+		double soma = 0;
+
+		Connection conn = Banco.getConnection();
+		Statement stmt = Banco.getStatement(conn);
+		ResultSet resultado = null;
+
+		String query = " select SUM(PRECO_QUEIMA) from QUEIMA where ID_PECA = " + idPeca;
+
+		try {
+			resultado = stmt.executeQuery(query);
+
+			if (resultado.next()) {
+				soma = resultado.getDouble(1);
+			}
+
+		} catch (SQLException erro) {
+			System.out.println("Erro ao executar atualizar soma de queimas de id " + idPeca);
+			System.out.println("Erro: " + erro.getMessage());
+		} finally {
+			Banco.closeResultSet(resultado);
+			Banco.closeStatement(stmt);
+			Banco.closeConnection(conn);
+		}
+		return soma;
 	}
 }
