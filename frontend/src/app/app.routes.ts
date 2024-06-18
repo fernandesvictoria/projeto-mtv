@@ -18,6 +18,12 @@ export const routes: Routes = [
     path: 'queimas',
     loadChildren: () =>
       import('./queimas/queimas.module').then((m) => m.QueimasModule),
+  },
+
+  {
+    path: 'tipos',
+    loadChildren: () =>
+      import('./tipos/tipos.module').then((m) => m.TiposModule),
   }
 
 ];

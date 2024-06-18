@@ -107,7 +107,7 @@ export class PecaDetalheComponent implements OnInit {
           icon: 'success',
           text: 'Peça salva com sucesso!',
           showCancelButton: true,
-          confirmButtonText: 'Nova Peça',
+          confirmButtonText: 'Nova peça',
           cancelButtonText: 'Voltar',
         }).then((resultado) => {
           if (resultado.isConfirmed) {
@@ -161,6 +161,6 @@ export class PecaDetalheComponent implements OnInit {
     this.router.navigate(['/pecas/']);
   }
 
- 
+
 
 }
