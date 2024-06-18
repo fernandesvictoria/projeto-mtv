@@ -31,7 +31,13 @@ export class ClienteDetalheComponent implements OnInit {
     this.service.salvar(this.cliente).subscribe(
       (resultado) => {
         this.cliente = resultado;
-        Swal.fire('Cliente salvo com sucesso!');
+        Swal.fire('Cliente salvo com sucesso!').then((resultado) => {
+          if (resultado.isConfirmed) {
+            this.cliente = new Cliente();
+          } else if (resultado.dismiss === Swal.DismissReason.cancel) {
+            this.voltar();
+          }
+        });
       },
       (erro) => {
         if (erro.error.mensagem.includes('CPF')) {
