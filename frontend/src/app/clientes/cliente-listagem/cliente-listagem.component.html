@@ -1,71 +1,76 @@
-<div class="card">
-  <div class="card-header" style="background-color: #80ba7a;">
-    <h5 class="text-white">
-      <i class="bi bi-person"></i> Clientes
-    </h5>
+<div class="container mb-5 mt-5">
+  <div class="card">
+    <div class="card-header" style="background-color: #80ba7a;">
+      <h5 class="text-white">
+        <i class="bi bi-person"></i> Clientes
+      </h5>
+    </div>
+
+    <div class="card-body">
+
+      <form>
+        <div class="row">
+          <div class="col-md-7">
+            <label for="cliente">Nome:</label>
+            <input type="text" id="cliente" class="form-control" name="cliente" [(ngModel)]="seletor.nomeCliente">
+          </div>
+
+          <div class="col-md-3">
+            <label for="nome">&nbsp;</label>
+            <button type="button" class="form-control btn btn-outline-dark" (click)="pesquisar()">
+              <i class="bi bi-search"></i> Pesquisar
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-7">
+            <label for="CPF">CPF:</label>
+            <input type="text" id="CPF" class="form-control" name="CPF" [(ngModel)]="seletor.cpf"
+                   maxlength="11" pattern="[0-9]*">
+          </div>
+          <div class="col-md-3">
+            <label for="nome">&nbsp;</label>
+            <button type="button" class="form-control btn btn-outline-dark" (click)="limpar()">
+              <i class="bi bi-x-circle"></i> Limpar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
-  <div class="card-body">
-    <form>
-      <div class="row">
-        <div class="col-md-7">
-          <label for="nome">Nome:</label>
-          <input type="text" id="cliente" class="form-control" name="cliente" [(ngModel)]="seletor.nomeCliente">
-        </div>
 
-        <div class="col-md-3">
-          <label for="nome">&nbsp;</label>
-          <button type="button" class="form-control btn btn-outline-dark" (click)="pesquisar()">
-            <i class="bi bi-search"></i> Pesquisar
-          </button>
-        </div>
-
-      </div>
-      <div class="row">
-        <div class="col-md-7">
-          <label for="nome">CPF:</label>
-          <input type="text" id="CPF" class="form-control" name="CPF" [(ngModel)]="seletor.cpf">
-        </div>
-        <div class="col-md-3">
-          <label for="nome">&nbsp;</label>
-          <button type="button" class="form-control btn btn-outline-dark" (click)="limpar()">
-            <i class="bi bi-x-circle"></i> Limpar
-          </button>
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
-
-<div class="container">
-  <div>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>CPF</th>
-          <th>Telefone</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let cliente of clientes">
-          <td>{{ cliente.nome }}</td>
-          <td>{{ cliente.cpf }}</td>
-          <td>{{ cliente.telefone }}</td>
-          <td>
-            <div class="row">
-              <div>
-                <button type="button" class="btn btn-outline-dark" (click)="editar(cliente.idCliente)">
-                  <i class="bi bi-pencil"></i> Editar
-                </button>
-                &nbsp;
-                <button type="button" class="btn btn-outline-danger" (click)="excluir(cliente.idCliente)">
-                  <i class="bi bi-trash3"></i> Excluir
-                </button>
+  <div class="card mt-3">
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Telefone</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cliente of clientes">
+            <td>{{ cliente.nome }}</td>
+            <td>{{ cliente.cpf }}</td>
+            <td>{{ cliente.telefone }}</td>
+            <td>
+              <div class="row">
+                <div>
+                  <button type="button" class="btn btn-outline-dark" (click)="editar(cliente.idCliente)">
+                    <i class="bi bi-pencil"></i> Editar
+                  </button>
+                  &nbsp;
+                  <button type="button" class="btn btn-outline-danger" (click)="excluir(cliente.idCliente)">
+                    <i class="bi bi-trash3"></i> Excluir
+                  </button>
+                </div>
               </div>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
