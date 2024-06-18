@@ -68,10 +68,10 @@ public class PecaRepository implements BaseRepository<Peca> {
 	@Override
 	public boolean alterar(Peca pecaEditada) {
 		boolean alterou = false;
-		String query = " UPDATE peca " 
+		String query = " UPDATE peca "
 				+ " SET ID_CLIENTE=?, ID_TIPO=?, TAMANHO=?, DESCRICAO=?, ESTAGIO=?, VALOR_TOTAL=?"
 				+ " WHERE ID_PECA=? ";
-		
+
 		Connection conn = Banco.getConnection();
 		PreparedStatement stmt = Banco.getPreparedStatementWithPk(conn, query);
 		try {
@@ -136,7 +136,7 @@ public class PecaRepository implements BaseRepository<Peca> {
 		Statement stmt = Banco.getStatement(conn);
 
 		ResultSet resultado = null;
-		String query = " SELECT * FROM PECA";
+		String query = " SELECT P.* FROM PECA P JOIN CLIENTE C ON P.ID_CLIENTE = C.ID_CLIENTE " + " ORDER BY C.NOME; ";
 
 		try {
 			resultado = stmt.executeQuery(query);
@@ -146,10 +146,10 @@ public class PecaRepository implements BaseRepository<Peca> {
 
 				ClienteRepository clienteRepository = new ClienteRepository();
 				peca.setCliente(clienteRepository.consultarPorId(resultado.getInt("ID_CLIENTE")));
-				
+
 				TipoRepository tipoRepository = new TipoRepository();
 				peca.setTipo(tipoRepository.consultarPorId(resultado.getInt("ID_TIPO")));
-				
+
 				peca.setTamanho(Tamanho.valueOf(resultado.getString("TAMANHO").toUpperCase()));
 				peca.setDescricao(resultado.getString("DESCRICAO"));
 				peca.setEstagio(EstagioPeca.valueOf(resultado.getString("ESTAGIO").toUpperCase()));
@@ -166,21 +166,20 @@ public class PecaRepository implements BaseRepository<Peca> {
 		}
 		return pecas;
 	}
-	
-	public ArrayList<Peca> consultarComFiltros(PecaSeletor seletor){
+
+	public ArrayList<Peca> consultarComFiltros(PecaSeletor seletor) {
 		ArrayList<Peca> pecas = new ArrayList<Peca>();
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
 		ResultSet resultado = null;
-		
-		String query = " select p.* from peca p "
-					 + " inner join cliente c on p.ID_CLIENTE = c.ID_CLIENTE "
-					 + " inner join tipo t on t.ID_TIPO = p.ID_TIPO ";
-		
+
+		String query = " select p.* from peca p " + " inner join cliente c on p.ID_CLIENTE = c.ID_CLIENTE "
+				+ " inner join tipo t on t.ID_TIPO = p.ID_TIPO ";
+
 		boolean primeiro = true;
-		
-		if(seletor.getCliente() != null && seletor.getCliente().trim().length() > 0) {
-			if(primeiro) {
+
+		if (seletor.getCliente() != null && seletor.getCliente().trim().length() > 0) {
+			if (primeiro) {
 				query += " WHERE ";
 			} else {
 				query += " AND ";
@@ -188,9 +187,9 @@ public class PecaRepository implements BaseRepository<Peca> {
 			query += " UPPER(c.nome) LIKE UPPER('%" + seletor.getCliente() + "%') ";
 			primeiro = false;
 		}
-		
-		if(seletor.getEstagio() != null && seletor.getEstagio().trim().length() > 0) {
-			if(primeiro) {
+
+		if (seletor.getEstagio() != null && seletor.getEstagio().trim().length() > 0) {
+			if (primeiro) {
 				query += " WHERE ";
 			} else {
 				query += " AND ";
@@ -198,9 +197,9 @@ public class PecaRepository implements BaseRepository<Peca> {
 			query += " UPPER(p.estagio) LIKE UPPER('%" + seletor.getEstagio() + "%') ";
 			primeiro = false;
 		}
-		
-		if(seletor.getTipo() != null && seletor.getTipo().trim().length() > 0) {
-			if(primeiro) {
+
+		if (seletor.getTipo() != null && seletor.getTipo().trim().length() > 0) {
+			if (primeiro) {
 				query += " WHERE ";
 			} else {
 				query += " AND ";
@@ -208,17 +207,17 @@ public class PecaRepository implements BaseRepository<Peca> {
 			query += " UPPER(t.nome) LIKE UPPER('%" + seletor.getTipo() + "%') ";
 			primeiro = false;
 		}
-		
+
 		query += " ORDER BY C.NOME ";
-		
+
 		try {
 			resultado = stmt.executeQuery(query);
 			while (resultado.next()) {
 				Peca peca = new Peca();
-				
+
 				ClienteRepository clienteRepository = new ClienteRepository();
 				TipoRepository tipoRepository = new TipoRepository();
-				
+
 				peca.setIdPeca(resultado.getInt("ID_PECA"));
 				peca.setCliente(clienteRepository.consultarPorId(resultado.getInt("ID_CLIENTE")));
 				peca.setTipo(tipoRepository.consultarPorId(resultado.getInt("ID_TIPO")));
@@ -226,9 +225,9 @@ public class PecaRepository implements BaseRepository<Peca> {
 				peca.setDescricao(resultado.getString("DESCRICAO"));
 				peca.setEstagio(EstagioPeca.valueOf(resultado.getString("ESTAGIO").toUpperCase()));
 				peca.setValorTotal(resultado.getDouble("VALOR_TOTAL"));
-					
+
 				pecas.add(peca);
-				
+
 			}
 		} catch (SQLException erro) {
 			System.out.println("Erro ao executar consultar com filtro.");
@@ -238,40 +237,59 @@ public class PecaRepository implements BaseRepository<Peca> {
 			Banco.closeStatement(stmt);
 			Banco.closeConnection(conn);
 		}
-		
-		
-		
+
 		return pecas;
 	}
-	
+
 	public boolean verificarSePossuiQueima(int idPeca) {
-	    Connection conn = Banco.getConnection();
-	    PreparedStatement stmt = null;
-	    ResultSet resultado = null;
-	    boolean temQueima = false;
- 
-	    try {
-	        String query = "SELECT COUNT(*) FROM QUEIMA WHERE ID_PECA = ?";
-	        stmt = conn.prepareStatement(query);
-	        stmt.setInt(1, idPeca);
-	        resultado = stmt.executeQuery();
- 
-	        if (resultado.next()) {
-	            int qtdeQueima = resultado.getInt(1);
-	            if (qtdeQueima > 0) {
-	            	temQueima = true;
-	            }
-	        }
-	    } catch (SQLException e) {
-	        System.out.println("Erro ao verificar se há queima cadastrada na peça.");
-	        e.printStackTrace();
-	    } finally {
-	        Banco.closeResultSet(resultado);
-	        Banco.closeStatement(stmt);
-	        Banco.closeConnection(conn);
-	    }
- 
-	    return temQueima;
+		Connection conn = Banco.getConnection();
+		PreparedStatement stmt = null;
+		ResultSet resultado = null;
+		boolean temQueima = false;
+
+		try {
+			String query = "SELECT COUNT(*) FROM QUEIMA WHERE ID_PECA = ?";
+			stmt = conn.prepareStatement(query);
+			stmt.setInt(1, idPeca);
+			resultado = stmt.executeQuery();
+
+			if (resultado.next()) {
+				int qtdeQueima = resultado.getInt(1);
+				if (qtdeQueima > 0) {
+					temQueima = true;
+				}
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao verificar se há queima cadastrada na peça.");
+			e.printStackTrace();
+		} finally {
+			Banco.closeResultSet(resultado);
+			Banco.closeStatement(stmt);
+			Banco.closeConnection(conn);
+		}
+
+		return temQueima;
 	}
-	
+
+	public void atualizarValorTotal(int idPeca, double soma) {
+		String query = " UPDATE peca SET VALOR_TOTAL = ?  WHERE ID_PECA = ?; ";
+		Connection conn = Banco.getConnection();
+		PreparedStatement stmt = Banco.getPreparedStatement(conn, query);
+		ResultSet resultado = null;
+
+		try {
+			stmt.setDouble(1, soma);
+			stmt.setInt(2, idPeca);
+			stmt.executeUpdate();
+
+		} catch (SQLException erro) {
+			System.out.println("Erro ao atualizar valor total de peças!");
+			System.out.println("Erro: " + erro.getMessage());
+		} finally {
+			Banco.closeResultSet(resultado);
+			Banco.closePreparedStatement(stmt);
+			Banco.closeConnection(conn);
+		}
+	}
+
 }
