@@ -132,7 +132,7 @@ export class PecaListagemComponent implements OnInit {
           (erro) => {
             Swal.fire({
               title: 'Atenção!',
-              text: 'Erro ao excluir vacina: ' + erro.error.mensagem,
+              text: 'Erro ao excluir peça: ' + erro.error.mensagem,
               icon: 'error',
             });
           }
@@ -140,11 +140,14 @@ export class PecaListagemComponent implements OnInit {
       }
     });
   }
+
   public detalhe(): void {
     this.router.navigate(['/pecas/detalhe']);
   }
 
   public novoTipo(): void {
-    this.router.navigate(['/tipo']);
+    this.router.navigate(['/tipos/detalhe']);
   }
+
+
 }
