@@ -1,3 +1,5 @@
+<!-- <pre>{{queima | json}}</pre> -->
+
 <div class="container mb-5 mt-5">
   <div class="card">
     <div class="card-header" style="background-color: #80ba7a;">
@@ -11,7 +13,7 @@
         <div class="row mb-3">
           <div class="col-md-4">
             <label for="dataQueima">Data da Queima</label>
-            <input type="date" class="form-control" id="dataQueima" [(ngModel)]="queima.dataQueima" name="dataQueima" />
+            <input type="date" class="form-control" id="dataQueima"  [(ngModel)]="queima.dataQueima" name="dataQueima" />
           </div>
 
           <div class="col-md-4">
@@ -26,8 +28,8 @@
 
           <div class="col-md-4">
             <label for="peca">Peça</label>
-            <select class="form-control" id="peca" [(ngModel)]="queima.peca.idPeca" name="peca">
-              <option *ngFor="let peca of pecas" [ngValue]="peca.idPeca">
+            <select class="form-control" [compareWith]="compareById" [(ngModel)]="queima.peca" name="peca">
+              <option *ngFor="let peca of pecas" [ngValue]="peca">
                 {{ peca.descricao }}
               </option>
             </select>
