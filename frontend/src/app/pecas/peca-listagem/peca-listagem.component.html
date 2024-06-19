@@ -40,7 +40,6 @@
         </div>
 
         <div class="row">
-
           <div class="col-md-2">
             <label for="nome">&nbsp;</label>
             <button type="button" class="form-control btn btn-outline-dark" (click)="consultarPecasComFiltros()">
@@ -57,15 +56,7 @@
 
           <div class="col-md-2">
           </div>
-
           <div class="col-md-2">
-          </div>
-
-          <div class="col-md-2">
-            <label for="nome">&nbsp;</label>
-            <button type="button" class="form-control btn btn-outline-dark" (click)="detalhe()">
-              Cadastrar nova peça
-            </button>
           </div>
 
           <div class="col-md-2">
@@ -74,19 +65,13 @@
               Cadastrar novo tipo
             </button>
           </div>
-
         </div>
-
       </form>
     </div>
   </div>
 
   <div class="card mt-3">
-
-
     <div class="card-body">
-
-
       <table class="table table-striped">
         <thead>
           <tr>
@@ -98,9 +83,9 @@
             <th>Estágio</th>
             <th>Valor Total</th>
             <th>Ações</th>
-
           </tr>
         </thead>
+
         <tbody>
           @for(peca of pecas; track peca){
           <tr>
@@ -111,7 +96,6 @@
             <td>{{ peca.descricao }}</td>
             <td>{{ peca.estagio }}</td>
             <td>{{ peca.valorTotal | currency: "R$ " }}</td>
-
             <td>
               <div class="row">
                 <div>
@@ -127,13 +111,9 @@
             </td>
           </tr>
           }
+
         </tbody>
       </table>
-
-      <div class="row">
-
-
-      </div>
     </div>
   </div>
 </div>

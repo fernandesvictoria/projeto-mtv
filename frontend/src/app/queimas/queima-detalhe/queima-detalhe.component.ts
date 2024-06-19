@@ -121,7 +121,7 @@ export class QueimaDetalheComponent implements OnInit {
   }
 
   public compareById(r1: any, r2: any): boolean {
-    return r1 && r2 ? r1.id === r2.id : r1 === r2;
+    return r1 && r2 ? r1.idPeca === r2.idPeca : r1 === r2;
   }
 
   public voltar(): void {
