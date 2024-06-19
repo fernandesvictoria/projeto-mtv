@@ -1,12 +1,13 @@
 package model.entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import model.entity.enums.TipoQueima;
 
 public class Queima {
 	private int idQueima;
-	private Date dataQueima;
+	private LocalDate dataQueima;
 	private TipoQueima tipoQueima;
 	private int temperaturaAlcancada;
 	private Peca peca;
@@ -18,7 +19,7 @@ public class Queima {
 		super();
 	}
 
-	public Queima(int idQueima, Date dataQueima, TipoQueima tipoQueima, int temperaturaAlcancada, Peca peca, String forno,
+	public Queima(int idQueima, LocalDate dataQueima, TipoQueima tipoQueima, int temperaturaAlcancada, Peca peca, String forno,
 			double precoQueima, boolean pago) {
 		this.idQueima = idQueima;
 		this.dataQueima = dataQueima;
@@ -38,11 +39,11 @@ public class Queima {
 		this.idQueima = idQueima;
 	}
 
-	public Date getDataQueima() {
+	public LocalDate getDataQueima() {
 		return dataQueima;
 	}
 
-	public void setDataQueima(Date dataQueima) {
+	public void setDataQueima(LocalDate dataQueima) {
 		this.dataQueima = dataQueima;
 	}
 

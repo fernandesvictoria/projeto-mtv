@@ -1,6 +1,7 @@
 package model.repository;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,7 +22,7 @@ public class QueimaRepository implements BaseRepository<Queima> {
 		PreparedStatement stmt = Banco.getPreparedStatementWithPk(conn, query);
 
 		try {
-			stmt.setDate(1, new java.sql.Date(novaQueima.getDataQueima().getTime()));
+			stmt.setDate(1, Date.valueOf(novaQueima.getDataQueima()));
 			stmt.setString(2, novaQueima.getTipoQueima().toString());
 			stmt.setInt(3, novaQueima.getTemperaturaAlcancada());
 			stmt.setInt(4, novaQueima.getPeca().getIdPeca());
@@ -71,7 +72,7 @@ public class QueimaRepository implements BaseRepository<Queima> {
 		Connection conn = Banco.getConnection();
 		PreparedStatement stmt = Banco.getPreparedStatementWithPk(conn, query);
 		try {
-			stmt.setDate(1, new java.sql.Date(queimaEditada.getDataQueima().getTime()));
+			stmt.setDate(1, Date.valueOf(queimaEditada.getDataQueima()));
 			stmt.setString(2, queimaEditada.getTipoQueima().toString());
 			stmt.setInt(3, queimaEditada.getTemperaturaAlcancada());
 			stmt.setInt(4, queimaEditada.getPeca().getIdPeca());
@@ -106,7 +107,7 @@ public class QueimaRepository implements BaseRepository<Queima> {
 			if (resultado.next()) {
 				queima = new Queima();
 				queima.setIdQueima(resultado.getInt("ID_QUEIMA"));
-				queima.setDataQueima(resultado.getDate("DATA_QUEIMA"));
+				queima.setDataQueima(resultado.getDate("DATA_QUEIMA").toLocalDate());
 				queima.setTipoQueima(TipoQueima.valueOf(resultado.getString("TIPO_QUEIMA")));
 				queima.setTemperaturaAlcancada(resultado.getInt("TEMPERATURA_ALCANCADA"));
 				queima.setPeca(pecaRepository.consultarPorId(resultado.getInt("ID_PECA")));
@@ -140,7 +141,7 @@ public class QueimaRepository implements BaseRepository<Queima> {
 			while (resultado.next()) {
 				Queima queima = new Queima();
 				queima.setIdQueima(resultado.getInt("ID_QUEIMA"));
-				queima.setDataQueima(resultado.getDate("DATA_QUEIMA"));
+				queima.setDataQueima(resultado.getDate("DATA_QUEIMA").toLocalDate());
 				queima.setTipoQueima(TipoQueima.valueOf(resultado.getString("TIPO_QUEIMA")));
 				queima.setTemperaturaAlcancada(resultado.getInt("TEMPERATURA_ALCANCADA"));
 				queima.setPeca(pecaRepository.consultarPorId(resultado.getInt("ID_PECA")));
@@ -175,7 +176,7 @@ public class QueimaRepository implements BaseRepository<Queima> {
 			while (resultado.next()) {
 				Queima queima = new Queima();
 				queima.setIdQueima(resultado.getInt("ID_QUEIMA"));
-				queima.setDataQueima(resultado.getDate("DATA_QUEIMA"));
+				queima.setDataQueima(resultado.getDate("DATA_QUEIMA").toLocalDate());
 				queima.setTipoQueima(TipoQueima.valueOf(resultado.getString("TIPO_QUEIMA")));
 				queima.setTemperaturaAlcancada(resultado.getInt("TEMPERATURA_ALCANCADA"));
 				queima.setPeca(pecaRepository.consultarPorId(resultado.getInt("ID_PECA")));

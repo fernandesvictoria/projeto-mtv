@@ -1,6 +1,7 @@
 package model.seletor;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 import model.entity.Peca;
@@ -8,8 +9,8 @@ import model.entity.Peca;
 public class QueimaSeletor {
 
 	private Integer idQueima;
-	private Date dataInicio;
-	private Date dataFim;
+	private LocalDate dataInicio;
+	private LocalDate dataFim;
 	private String tipoQueima;
 	private Peca peca;
 	private String forno;
@@ -23,19 +24,19 @@ public class QueimaSeletor {
 		this.idQueima = idQueima;
 	}
 
-	public Date getDataInicio() {
+	public LocalDate getDataInicio() {
 		return dataInicio;
 	}
 
-	public void setDataInicio(Date dataInicio) {
+	public void setDataInicio(LocalDate dataInicio) {
 		this.dataInicio = dataInicio;
 	}
 
-	public Date getDataFim() {
+	public LocalDate getDataFim() {
 		return dataFim;
 	}
 
-	public void setDataFim(Date dataFim) {
+	public void setDataFim(LocalDate dataFim) {
 		this.dataFim = dataFim;
 	}
 
@@ -86,12 +87,12 @@ public class QueimaSeletor {
 			query.append(" AND ID_QUEIMA = ").append(this.idQueima);
 		}
 		if (this.dataInicio != null) {
-			String formattedDataInicio = sdf.format(this.dataInicio);
-			query.append(" AND DATA_QUEIMA >= '").append(formattedDataInicio).append("'");
+		//	String formattedDataInicio = sdf.format(this.dataInicio);
+			query.append(" AND DATA_QUEIMA >= '").append(this.dataInicio).append("'");
 		}
 		if (this.dataFim != null) {
-			String formattedDataFim = sdf.format(this.dataFim);
-			query.append(" AND DATA_QUEIMA <= '").append(formattedDataFim).append("'");
+//			String formattedDataFim = sdf.format(this.dataFim);
+			query.append(" AND DATA_QUEIMA <= '").append(this.dataFim).append("'");
 		}
 		if (this.tipoQueima != null && !this.tipoQueima.isEmpty()) {
 			query.append(" AND TIPO_QUEIMA LIKE '%").append(this.tipoQueima).append("%'");
