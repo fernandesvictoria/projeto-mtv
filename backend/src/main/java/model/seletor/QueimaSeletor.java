@@ -1,5 +1,6 @@
 package model.seletor;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import model.entity.Peca;
@@ -7,7 +8,8 @@ import model.entity.Peca;
 public class QueimaSeletor {
 
 	private Integer idQueima;
-	private Date dataQueima;
+	private Date dataInicio;
+	private Date dataFim;
 	private String tipoQueima;
 	private Peca peca;
 	private String forno;
@@ -21,12 +23,20 @@ public class QueimaSeletor {
 		this.idQueima = idQueima;
 	}
 
-	public Date getDataQueima() {
-		return dataQueima;
+	public Date getDataInicio() {
+		return dataInicio;
 	}
 
-	public void setDataQueima(Date dataQueima) {
-		this.dataQueima = dataQueima;
+	public void setDataInicio(Date dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+
+	public Date getDataFim() {
+		return dataFim;
+	}
+
+	public void setDataFim(Date dataFim) {
+		this.dataFim = dataFim;
 	}
 
 	public String getTipoQueima() {
@@ -62,21 +72,26 @@ public class QueimaSeletor {
 	}
 
 	public boolean hasFilters() {
-		return (this.idQueima != null) || (this.dataQueima != null)
+		return (this.idQueima != null) || (this.dataInicio != null) || (this.dataFim != null)
 				|| (this.tipoQueima != null && !this.tipoQueima.isEmpty())
 				|| (this.peca != null && this.peca.getIdPeca() > 0) || (this.forno != null && !this.forno.isEmpty())
 				|| (this.pago != null);
 	}
 
-	// Método para construir a query com filtros
 	public String buildQuery() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		StringBuilder query = new StringBuilder("SELECT * FROM QUEIMA WHERE 1=1");
 
 		if (this.idQueima != null) {
 			query.append(" AND ID_QUEIMA = ").append(this.idQueima);
 		}
-		if (this.dataQueima != null) {
-			query.append(" AND DATA_QUEIMA = '").append(new java.sql.Date(this.dataQueima.getTime())).append("'");
+		if (this.dataInicio != null) {
+			String formattedDataInicio = sdf.format(this.dataInicio);
+			query.append(" AND DATA_QUEIMA >= '").append(formattedDataInicio).append("'");
+		}
+		if (this.dataFim != null) {
+			String formattedDataFim = sdf.format(this.dataFim);
+			query.append(" AND DATA_QUEIMA <= '").append(formattedDataFim).append("'");
 		}
 		if (this.tipoQueima != null && !this.tipoQueima.isEmpty()) {
 			query.append(" AND TIPO_QUEIMA LIKE '%").append(this.tipoQueima).append("%'");
@@ -93,4 +108,5 @@ public class QueimaSeletor {
 
 		return query.toString();
 	}
+
 }

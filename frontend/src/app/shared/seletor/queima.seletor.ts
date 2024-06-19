@@ -2,7 +2,8 @@ import { Peca } from './../model/peca';
 
 export class QueimaSeletor {
   idQueima?: number;
-  dataQueima?: Date;
+  dataInicio?: Date;
+  dataFim?: Date;
   tipoQueima?: string;
   peca?: Peca;
   forno?: string;

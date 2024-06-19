@@ -1,85 +1,79 @@
 import { Component, OnInit } from '@angular/core';
-import { QueimasService } from '../../shared/service/queimas.service';
-import { Queima } from '../../shared/model/queima';
-import Swal from 'sweetalert2';
-import { QueimaSeletor } from '../../shared/seletor/queima.seletor';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+import { TipoQueima } from '../../shared/model/enum/tipo-queima';
+import { Queima } from '../../shared/model/queima';
+import { QueimaSeletor } from '../../shared/seletor/queima.seletor';
+import { QueimasService } from '../../shared/service/queimas.service';
 
 @Component({
   selector: 'app-queima-listagem',
   templateUrl: './queima-listagem.component.html',
-  styleUrls: ['./queima-listagem.component.scss'],
+  styleUrls: ['./queima-listagem.component.scss']
 })
 export class QueimaListagemComponent implements OnInit {
-  public queimas: Array<Queima> = [];
-  public seletor: QueimaSeletor = new QueimaSeletor();
+  queimas: Queima[] = [];
+  seletor: QueimaSeletor = new QueimaSeletor();
+  tiposDeQueima: string[] = [];
 
-  constructor(private queimaService: QueimasService, private router: Router) {}
-
-  ngOnInit(): void {
-    this.consultarTodasQueimas();
+  constructor(private queimaService: QueimasService, private router: Router) {
+    this.tiposDeQueima = this.getEnumValues(TipoQueima);
   }
 
-  public consultarTodasQueimas(): void {
-    this.queimaService.consultarTodasQueimas().subscribe(
-      (resultado) => {
-        this.queimas = resultado;
+  ngOnInit(): void {
+    this.pesquisar();
+  }
+
+  pesquisar(): void {
+    if (this.seletor.dataInicio) {
+      this.seletor.dataInicio = new Date(this.seletor.dataInicio);
+    }
+    if (this.seletor.dataFim) {
+      this.seletor.dataFim = new Date(this.seletor.dataFim);
+    }
+
+    this.queimaService.filtrarQueimas(this.seletor).subscribe(
+      (result: Queima[]) => {
+        this.queimas = result;
       },
-      (erro) => {
+      (error: any) => {
         Swal.fire({
           title: 'Erro!',
-          text: 'Erro ao consultar todas as queimas: ' + erro.error.mensagem,
+          text: 'Erro ao buscar queimas: ' + error.message,
           icon: 'error',
         });
       }
     );
   }
 
-  public limpar() {
+  limpar(): void {
     this.seletor = new QueimaSeletor();
-    this.consultarTodasQueimas();
+    this.pesquisar();
   }
 
-  public pesquisar() {
-    this.queimaService.filtrarQueimas(this.seletor).subscribe(
-      (resultado) => {
-        this.queimas = resultado;
-      },
-      (erro) => {
-        console.error('Erro ao consultar queimas', erro);
-      }
-    );
+  editar(id: number): void {
+    this.router.navigate(['/queimas/detalhe', id]);
   }
 
-  public editar(idQueima: number): void {
-    this.router.navigate(['/queimas/detalhe/', idQueima]);
-  }
-
-  public excluir(id: number): void {
+  excluir(id: number): void {
     Swal.fire({
-      title: 'Você deseja excluir?',
-      text: 'Não será possível reverter a exclusão!',
+      title: 'Tem certeza?',
+      text: 'Você não poderá reverter isso!',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      cancelButtonText: 'Cancelar',
-      confirmButtonText: 'Sim, continue!',
+      confirmButtonText: 'Sim, excluir!',
+      cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
         this.queimaService.excluirQueima(id).subscribe(
-          (r) => {
-            Swal.fire({
-              title: 'Excluída!',
-              text: 'A queima foi excluída com sucesso!',
-              icon: 'success',
-            });
-            this.consultarTodasQueimas();
+          () => {
+            Swal.fire('Excluído!', 'A queima foi excluída.', 'success');
+            this.pesquisar();
           },
-          (erro) => {
+          (error) => {
             Swal.fire({
-              title: 'Atenção!',
-              text: 'Erro ao excluir queima: ' + erro.error.mensagem,
+              title: 'Erro!',
+              text: 'Erro ao excluir a queima: ' + error.message,
               icon: 'error',
             });
           }
@@ -88,7 +82,11 @@ export class QueimaListagemComponent implements OnInit {
     });
   }
 
-  trackById(index: number, queima: Queima): number {
-    return queima.idQueima;
+  getEnumValues(enumType: any): string[] {
+    return Object.keys(enumType).filter(key => isNaN(Number(key)));
+  }
+
+  trackById(index: number, item: Queima): number {
+    return item.idQueima;
   }
 }
