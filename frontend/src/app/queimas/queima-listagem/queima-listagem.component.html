@@ -11,28 +11,34 @@
         <div class="row mb-3">
           <div class="col-md-4">
             <label for="idQueima">ID Queima</label>
-            <input type="number" class="form-control" id="idQueima" [(ngModel)]="seletor.idQueima" name="idQueima"/>
+            <input type="number" class="form-control" id="idQueima" [(ngModel)]="seletor.idQueima" name="idQueima" />
           </div>
 
           <div class="col-md-4">
-            <label for="dataQueima">Data</label>
-            <input type="date" class="form-control" id="dataQueima" [(ngModel)]="seletor.dataQueima" name="dataQueima"/>
+            <label for="dataInicio">Data Início</label>
+            <input type="date" class="form-control" id="dataInicio" [(ngModel)]="seletor.dataInicio" name="dataInicio" />
+          </div>
+
+          <div class="col-md-4">
+            <label for="dataFim">Data Fim</label>
+            <input type="date" class="form-control" id="dataFim" [(ngModel)]="seletor.dataFim" name="dataFim" />
           </div>
 
           <div class="col-md-4">
             <label for="tipoQueima">Tipo de Queima</label>
-            <input type="text" class="form-control" id="tipoQueima" [(ngModel)]="seletor.tipoQueima" name="tipoQueima"/>
+            <select class="form-control" name="tipoQueima" [(ngModel)]="seletor.tipoQueima">
+              <option *ngFor="let tipo of tiposDeQueima" [value]="tipo"> {{ tipo }} </option>
+            </select>
           </div>
 
           <div class="col-md-4">
             <label for="forno">Forno</label>
-            <input type="text" class="form-control" id="forno" [(ngModel)]="seletor.forno" name="forno"/>
+            <input type="text" class="form-control" id="forno" [(ngModel)]="seletor.forno" name="forno" />
           </div>
 
           <div class="col-md-4">
             <label for="pago">Pago</label>
             <select class="form-control" id="pago" [(ngModel)]="seletor.pago" name="pago">
-              <option value="">Pago</option>
               <option [ngValue]="true">Sim</option>
               <option [ngValue]="false">Não</option>
             </select>
