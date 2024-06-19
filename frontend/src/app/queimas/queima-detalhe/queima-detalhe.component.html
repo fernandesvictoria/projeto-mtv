@@ -1,0 +1,51 @@
+<div class="container mb-5 mt-5">
+  <div class="card">
+    <div class="card-header" style="background-color: #80ba7a;">
+      <h5 class="text-white">
+        {{ queima.idQueima ? 'Edição ' : 'Cadastro ' }} de Queimas
+      </h5>
+    </div>
+    <div class="card-body">
+      <div class="container col-md-6">
+        <form class="mt-4 mb-4">
+          <div class="mb-3">
+            <label for="dataQueima">Data da Queima</label>
+            <input type="date" class="form-control" name="dataQueima" [(ngModel)]="queima.dataQueima">
+          </div>
+          <div class="mb-4">
+            <label for="tipoQueima">Tipo de Queima</label>
+            <input type="text" class="form-control" name="tipoQueima" [(ngModel)]="queima.tipoQueima">
+          </div>
+          <div class="mb-4">
+            <label for="peca">Peça</label>
+            <select class="form-control" name="peca" [compareWith]="compareById" [(ngModel)]="queima.peca">
+              <option *ngFor="let p of pecas; trackBy: trackById" [ngValue]="p">{{ p.descricao }}</option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <label for="forno">Forno</label>
+            <input type="text" class="form-control" name="forno" [(ngModel)]="queima.forno">
+          </div>
+          <div class="mb-4">
+            <label for="precoQueima">Preço</label>
+            <input type="number" class="form-control" name="precoQueima" [(ngModel)]="queima.precoQueima">
+          </div>
+          <div class="mb-3">
+            <label for="pago">Pago</label>
+            <select class="form-control" name="pago" [(ngModel)]="queima.pago">
+              <option [ngValue]="true">Sim</option>
+              <option [ngValue]="false">Não</option>
+            </select>
+          </div>
+          <div class="row mt-4">
+            <div class="col-md-12 mt-4">
+              <button type="button" class="btn btn-outline-success col-md-3" (click)="salvar()">Salvar</button>
+              &nbsp;
+              <button type="button" class="btn btn-outline-dark col-md-3" (click)="voltar()">Voltar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
