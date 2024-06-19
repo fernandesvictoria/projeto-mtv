@@ -102,6 +102,7 @@ export class PecaListagemComponent implements OnInit {
 
   public limpar(): void {
     this.consultarTodasPecas();
+    this.seletor = new PecaSeletor();
   }
 
   public editar(idPecaEditar: number): void {

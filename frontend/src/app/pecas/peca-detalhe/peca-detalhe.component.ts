@@ -154,13 +154,24 @@ export class PecaDetalheComponent implements OnInit {
     );
   }
 
-  public compareById(r1: any, r2: any): boolean {
-    return r1 && r2 ? r1.id === r2.id : r1 === r2;
+  // public compareById(r1: any, r2: any): boolean {
+  //   return r1 && r2 ? r1.id === r2.id : r1 === r2;
+  // }
+
+  public compareById(item1: any, item2: any): boolean {
+    if (item1 && item2) {
+      if (item1.idCliente !== undefined && item2.idCliente !== undefined) {
+        return item1.idCliente === item2.idCliente;
+      }
+      if (item1.idTipo !== undefined && item2.idTipo !== undefined) {
+        return item1.idTipo === item2.idTipo;
+      }
+    }
+    return item1 === item2;
   }
+
   public voltar(): void {
     this.router.navigate(['/pecas/']);
   }
-
-
 
 }
