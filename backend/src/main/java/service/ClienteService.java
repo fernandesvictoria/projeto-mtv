@@ -19,9 +19,9 @@ public class ClienteService {
 	}
 
 	private void validarCpf(Cliente novoCliente) throws CeramicaException {
-		if (repository.cpfExiste(novoCliente.getCpf())) {
-			throw new CeramicaException("CPF " + novoCliente.getCpf() + " já cadastrado ");
-		}
+	    if (repository.cpfExiste(novoCliente.getCpf())) {
+	        throw new CeramicaException("CPF " + novoCliente.getCpf() + " já cadastrado ");
+	    }
 	}
 
 	public boolean excluir(int id) throws CeramicaException {
@@ -32,10 +32,8 @@ public class ClienteService {
 	}
 
 	public boolean alterar(Cliente clienteAlterado) throws CeramicaException {
-
-		validarCpf(clienteAlterado);
-
-		return repository.alterar(clienteAlterado);
+	    validarCpf(clienteAlterado);
+	    return repository.alterar(clienteAlterado);
 	}
 
 	public Cliente consultarPorId(int id) {

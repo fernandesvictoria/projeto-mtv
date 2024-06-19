@@ -40,32 +40,24 @@ export class ClienteDetalheComponent implements OnInit {
         });
       },
       (erro) => {
-        if (erro.error.mensagem.includes('CPF')) {
-          Swal.fire({
-            icon: 'error',
-            title: 'Erro ao salvar novo cliente',
-            text: erro.error.mensagem,
-          });
-        } else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Erro ao salvar novo cliente',
-            text: 'Erro inesperado ao tentar salvar o cliente.',
-          });
-        }
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro ao salvar novo cliente',
+          text: 'Erro inesperado ao tentar salvar o cliente.',
+        });
         console.error('Erro ao salvar novo cliente.', erro.error.mensagem);
       }
     );
   }
 
-  private editarCliente(): void {
+  public editarCliente(): void {
     this.service.editar(this.cliente).subscribe(
-      (resposta) => {
+      (r) => {
         Swal.fire('Cliente atualizado com sucesso!', '', 'success');
         this.voltar();
       },
-      (erro) => {
-        Swal.fire('Erro ao atualizar cliente: ' + erro.error.mensagem, 'error');
+      (e) => {
+        Swal.fire('Erro ao atualizar cliente: ' + e.error.mensagem, 'error');
       }
     );
   }
