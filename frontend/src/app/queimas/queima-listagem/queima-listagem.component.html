@@ -1,67 +1,102 @@
-<div class="container">
-  <h3 class="mt-4">Listagem de Queimas</h3>
+<div class="container mb-5 mt-5">
+  <div class="card">
+    <div class="card-header" style="background-color: #80ba7a;">
+      <h5 class="text-white">
+        Listagem de Queimas
+      </h5>
+    </div>
 
-  <div class="row mb-4">
-    <div class="col-md-2">
-      <input type="number" class="form-control" placeholder="ID da Queima" [(ngModel)]="seletor.idQueima" />
-    </div>
-    <div class="col-md-2">
-      <input type="date" class="form-control" [(ngModel)]="seletor.dataQueima" />
-    </div>
-    <div class="col-md-2">
-      <input type="text" class="form-control" placeholder="Tipo de Queima" [(ngModel)]="seletor.tipoQueima" />
-    </div>
-    <!-- <div class="col-md-2">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Peça"
-        [(ngModel)]="seletor.peca.descricao"
-      />
-    </div> -->
-    <div class="col-md-2">
-      <input type="text" class="form-control" placeholder="Forno" [(ngModel)]="seletor.forno" />
-    </div>
-    <div class="col-md-2">
-      <select class="form-control" [(ngModel)]="seletor.pago" placeholder="Pago">
-        <option value="">Pago</option>
-        <option [ngValue]="true">Sim</option>
-        <option [ngValue]="false">Não</option>
-      </select>
-    </div>
-    <div class="col-md-2 mt-2 mt-md-0">
-      <button class="btn btn-primary w-100" (click)="pesquisar()">Pesquisar</button>
+    <div class="card-body">
+      <form>
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label for="idQueima">ID Queima</label>
+            <input type="number" class="form-control" id="idQueima" [(ngModel)]="seletor.idQueima" name="idQueima" />
+          </div>
+
+          <div class="col-md-4">
+            <label for="dataInicio">Data Início</label>
+            <input type="date" class="form-control" id="dataInicio" [(ngModel)]="seletor.dataInicio" name="dataInicio" />
+          </div>
+
+          <div class="col-md-4">
+            <label for="dataFim">Data Fim</label>
+            <input type="date" class="form-control" id="dataFim" [(ngModel)]="seletor.dataFim" name="dataFim" />
+          </div>
+
+          <div class="col-md-4">
+            <label for="tipoQueima">Tipo de Queima</label>
+            <select class="form-control" name="tipoQueima" [(ngModel)]="seletor.tipoQueima">
+              <option *ngFor="let tipo of tiposDeQueima" [value]="tipo"> {{ tipo }} </option>
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <label for="forno">Forno</label>
+            <input type="text" class="form-control" id="forno" [(ngModel)]="seletor.forno" name="forno" />
+          </div>
+
+          <div class="col-md-4">
+            <label for="pago">Pago</label>
+            <select class="form-control" id="pago" [(ngModel)]="seletor.pago" name="pago">
+              <option [ngValue]="true">Sim</option>
+              <option [ngValue]="false">Não</option>
+            </select>
+          </div>
+
+          <div class="col-md-2">
+            <label for="nome">&nbsp;</label>
+            <button type="button" class="form-control btn btn-outline-dark" (click)="pesquisar()">
+              <i class="bi bi-search"></i> Pesquisar
+            </button>
+          </div>
+          <div class="col-md-2">
+            <label for="nome">&nbsp;</label>
+            <button type="button" class="form-control btn btn-outline-dark" (click)="limpar()">
+              <i class="bi bi-x-circle"></i> Limpar
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 
-  <div>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>ID Queima</th>
-          <th>Data</th>
-          <th>Tipo</th>
-          <th>Peça</th>
-          <th>Forno</th>
-          <th>Preço</th>
-          <th>Pago</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let queima of queimas; trackBy: trackById">
-          <td>{{ queima.idQueima }}</td>
-          <td>{{ queima.dataQueima | date:'dd/MM/yyyy' }}</td>
-          <td>{{ queima.tipoQueima }}</td>
-          <td>{{ queima.peca.descricao }}</td>
-          <td>{{ queima.forno }}</td>
-          <td>{{ queima.precoQueima | currency:'BRL':'symbol':'1.2-2' }}</td>
-          <td>{{ queima.pago ? 'Sim' : 'Não' }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="col-md-2 mt-2 mt-md-0">
-      <button class="btn btn-secondary btn-sm w-100" (click)="limpar()">Limpar</button>
+  <div class="card mt-3">
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID Queima</th>
+            <th>Data</th>
+            <th>Tipo</th>
+            <th>Peça</th>
+            <th>Forno</th>
+            <th>Preço</th>
+            <th>Pago</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let queima of queimas; trackBy: trackById">
+            <td>{{ queima.idQueima }}</td>
+            <td>{{ queima.dataQueima | date:'dd/MM/yyyy' }}</td>
+            <td>{{ queima.tipoQueima }}</td>
+            <td>{{ queima.peca.descricao }}</td>
+            <td>{{ queima.forno }}</td>
+            <td>{{ queima.precoQueima | currency:'BRL':'symbol':'1.2-2' }}</td>
+            <td>{{ queima.pago ? 'Sim' : 'Não' }}</td>
+            <td>
+              <button type="button" class="btn btn-outline-dark btn-sm" (click)="editar(queima.idQueima)">
+                <i class="bi bi-pencil"></i> Editar
+              </button>
+              &nbsp;
+              <button type="button" class="btn btn-outline-danger btn-sm" (click)="excluir(queima.idQueima)">
+                <i class="bi bi-trash3"></i> Excluir
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
-

@@ -1,0 +1,53 @@
+<div class="container mb-5 mt-5">
+  <div class="card">
+    <div class="card-header" style="background-color: #80ba7a;">
+      <h5 class="text-white">
+        {{ queima.idQueima ? 'Edição ' : 'Cadastro ' }} de Queimas
+      </h5>
+    </div>
+
+    <div class="card-body">
+      <form>
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label for="dataQueima">Data da Queima</label>
+            <input type="date" class="form-control" id="dataQueima" [(ngModel)]="queima.dataQueima" name="dataQueima" />
+          </div>
+
+          <div class="col-md-4">
+            <label for="tipoQueima">Tipo de Queima</label>
+            <input type="text" class="form-control" id="tipoQueima" [(ngModel)]="queima.tipoQueima" name="tipoQueima" />
+          </div>
+
+          <div class="col-md-4">
+            <label for="forno">Forno</label>
+            <input type="text" class="form-control" id="forno" [(ngModel)]="queima.forno" name="forno" />
+          </div>
+
+          <div class="col-md-4">
+            <label for="peca">Peça</label>
+            <select class="form-control" id="peca" [(ngModel)]="queima.peca.idPeca" name="peca">
+              <option *ngFor="let peca of pecas" [ngValue]="peca.idPeca">
+                {{ peca.descricao }}
+              </option>
+            </select>
+          </div>
+
+          <div class="col-md-4">
+            <label for="precoQueima">Preço</label>
+            <input type="number" class="form-control" id="precoQueima" [(ngModel)]="queima.precoQueima"
+              name="precoQueima" />
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-md-12 mt-4">
+              <button type="button" class="btn btn-outline-success col-md-3" (click)="salvar()">Salvar</button>
+              &nbsp;
+              <button type="button" class="btn btn-outline-dark col-md-3" (click)="voltar()">Voltar</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

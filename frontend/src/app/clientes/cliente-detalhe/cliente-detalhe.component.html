@@ -23,12 +23,13 @@
 
             <div class="mb-3">
               <label for="telefone" class="form-label">Telefone:</label>
-              <input type="text" id="telefone" class="form-control" name="telefone" [(ngModel)]="cliente.telefone">
+              <input type="text" id="telefone" class="form-control" name="telefone" [(ngModel)]="cliente.telefone"
+              maxlength="15" pattern="[0-9]*" required>
             </div>
 
             <div class="row mt-4">
               <div class="col-md-12">
-                <button type="submit" class="btn btn-outline-success col-md-3" (click)="salvarNovoCliente()">
+                <button type="submit" class="btn btn-outline-success col-md-3" (click)="editarCliente()">
                   Salvar
                 </button>
                 &nbsp;
