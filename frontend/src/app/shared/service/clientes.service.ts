@@ -8,7 +8,7 @@ import { ClienteSeletor } from '../seletor/cliente.seletor';
   providedIn: 'root',
 })
 export class ClientesService {
-  private readonly API = 'http://localhost:8080/projeto-mtv/rest/cliente';
+  private readonly API = 'http://localhost:8080/rest/cliente';
 
   constructor(private httpClient: HttpClient) {}
 
