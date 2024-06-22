@@ -17,14 +17,10 @@ export class ClienteDetalheComponent implements OnInit {
   ) {}
 
   public cliente: Cliente = new Cliente();
+  public idCliente: number;
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      const idCliente = params['id'];
-      if (idCliente) {
-        this.consultarClienteId(idCliente);
-      }
-    });
+    this.hasIdCliente();
   }
 
   public salvarNovoCliente() {
@@ -43,9 +39,8 @@ export class ClienteDetalheComponent implements OnInit {
         Swal.fire({
           icon: 'error',
           title: 'Erro ao salvar novo cliente',
-          text: 'Erro inesperado ao tentar salvar o cliente.',
+          text: 'Erro ao salvar novo cliente.' + erro.error.mensagem,
         });
-        console.error('Erro ao salvar novo cliente.', erro.error.mensagem);
       }
     );
   }
@@ -60,6 +55,23 @@ export class ClienteDetalheComponent implements OnInit {
         Swal.fire('Erro ao atualizar cliente: ' + e.error.mensagem, 'error');
       }
     );
+  }
+
+  private hasIdCliente(): void {
+    this.route.params.subscribe((params) => {
+      this.idCliente = params['id'];
+      if (this.idCliente) {
+        this.consultarClienteId(this.idCliente);
+      }
+    });
+  }
+
+  public salvar() {
+    if (this.idCliente) {
+      this.editarCliente();
+    } else {
+      this.salvarNovoCliente();
+    }
   }
 
   public consultarClienteId(idCliente: number): void {
