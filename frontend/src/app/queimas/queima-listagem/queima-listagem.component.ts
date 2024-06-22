@@ -25,13 +25,6 @@ export class QueimaListagemComponent implements OnInit {
   }
 
   pesquisar(): void {
-    if (this.seletor.dataInicio) {
-      this.seletor.dataInicio = new Date(this.seletor.dataInicio);
-    }
-    if (this.seletor.dataFim) {
-      this.seletor.dataFim = new Date(this.seletor.dataFim);
-    }
-
     this.queimaService.filtrarQueimas(this.seletor).subscribe(
       (result: Queima[]) => {
         this.queimas = result;

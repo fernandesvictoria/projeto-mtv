@@ -11,12 +11,12 @@
         <div class="row mb-3">
           <div class="col-md-4">
             <label for="dataQueima">Data da Queima</label>
-            <input type="date" class="form-control" id="dataQueima"  [(ngModel)]="queima.dataQueima" name="dataQueima" />
+            <input type="date" class="form-control" id="dataQueima" [(ngModel)]="queima.dataQueima" name="dataQueima" />
           </div>
 
           <div class="col-md-4">
             <label for="tipoQueima">Tipo de Queima</label>
-            <select class="form-control" name="tipoQueima" [(ngModel)]="seletor.tipoQueima">
+            <select class="form-control" id="tipoQueima" [(ngModel)]="queima.tipoQueima" name="tipoQueima">
               <option *ngFor="let tipo of tiposDeQueima" [value]="tipo"> {{ tipo }} </option>
             </select>
           </div>
@@ -39,6 +39,15 @@
             <label for="precoQueima">Preço</label>
             <input type="number" class="form-control" id="precoQueima" [(ngModel)]="queima.precoQueima"
               name="precoQueima" />
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-check mt-4">
+              <input class="form-check-input" type="checkbox" id="pago" [(ngModel)]="queima.pago" name="pago" />
+              <label class="form-check-label" for="pago">
+                Pago
+              </label>
+            </div>
           </div>
 
           <div class="row mt-4">
