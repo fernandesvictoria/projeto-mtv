@@ -2,7 +2,6 @@ package model.seletor;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
 
 import model.entity.Peca;
 
