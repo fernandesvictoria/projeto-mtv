@@ -1,4 +1,3 @@
-// queima-detalhe.component.ts
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -6,6 +5,8 @@ import { QueimasService } from '../../shared/service/queimas.service';
 import { PecasService } from '../../shared/service/pecas.service';
 import { Queima } from '../../shared/model/queima';
 import { Peca } from '../../shared/model/peca';
+import { QueimaSeletor } from '../../shared/seletor/queima.seletor';
+import { TipoQueima } from '../../shared/model/enum/tipo-queima';
 
 @Component({
   selector: 'app-queima-detalhe',
@@ -16,13 +17,21 @@ export class QueimaDetalheComponent implements OnInit {
   public queima: Queima = new Queima();
   public pecas: Array<Peca> = [];
   public idQueima: number;
+  seletor: QueimaSeletor = new QueimaSeletor();
+  tiposDeQueima: string[] = [];
 
   constructor(
     private queimaService: QueimasService,
     private pecaService: PecasService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) {
+    this.tiposDeQueima = this.getEnumValues(TipoQueima);
+  }
+
+  getEnumValues(enumType: any): string[] {
+    return Object.keys(enumType).filter(key => isNaN(Number(key)));
+  }
 
   ngOnInit(): void {
     this.consultarTodasPecas();
