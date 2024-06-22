@@ -16,13 +16,13 @@ public class QueimaService {
 			throw new CeramicaException("Peça inválida para a queima.");
 		}
 
-		// RN52: Adicionar valor da queima ao valor total da peça
-		
 		novaQueima = repository.salvar(novaQueima);
 		double soma = repository.calcularValorPeca(novaQueima.getPeca().getIdPeca());
-		
+
 		PecaService pecaService = new PecaService();
 		pecaService.atualizarValorTotal(novaQueima.getPeca().getIdPeca(), soma);
+		pecaService.atualizarEstagioPeca(novaQueima.getPeca().getIdPeca(),
+				novaQueima.getPeca().getEstagio().toString());
 
 		return novaQueima;
 	}
@@ -44,6 +44,10 @@ public class QueimaService {
 		if (queimaAlterada.getPeca() == null || queimaAlterada.getPeca().getIdPeca() <= 0) {
 			throw new CeramicaException("Peça inválida para a queima.");
 		}
+
+		PecaService pecaService = new PecaService();
+		pecaService.atualizarEstagioPeca(queimaAlterada.getPeca().getIdPeca(),
+				queimaAlterada.getPeca().getEstagio().toString());
 
 		return repository.alterar(queimaAlterada);
 	}

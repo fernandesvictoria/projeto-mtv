@@ -63,4 +63,5 @@ public class PecaService {
 	public void atualizarEstagioPeca(int idPeca, String estagio) {
 		repository.atualizarEstagioPeca(idPeca, estagio);
 	}
+
 }
