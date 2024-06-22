@@ -60,5 +60,7 @@ public class PecaService {
 		repository.atualizarValorTotal(idPeca, soma);
 	}
 	
-
+	public void atualizarEstagioPeca(int idPeca, String estagio) {
+		repository.atualizarEstagioPeca(idPeca, estagio);
+	}
 }
