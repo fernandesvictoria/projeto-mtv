@@ -24,6 +24,11 @@ export const routes: Routes = [
     path: 'tipos',
     loadChildren: () =>
       import('./tipos/tipos.module').then((m) => m.TiposModule),
-  }
+  },
 
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('./login/login.module').then((m) => m.LoginModule),
+  }
 ];
