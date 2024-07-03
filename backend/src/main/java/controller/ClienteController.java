@@ -3,6 +3,7 @@ package controller;
 import java.util.List;
 
 import exception.CeramicaException;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -11,15 +12,18 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import model.entity.Cliente;
 import model.seletor.ClienteSeletor;
 import service.ClienteService;
 
-@Path("/cliente")
+@Path("/restrito/cliente")
 public class ClienteController {
 
 	private ClienteService service = new ClienteService();
+	@Context
+	private HttpServletRequest request;
 
 	@POST
 	@Path("/salvar")
@@ -45,13 +49,13 @@ public class ClienteController {
 
 	@GET
 	@Path("/todos")
-	public List<Cliente> consultarTodasPessoas() {
+	public List<Cliente> consultarTodasPessoas() throws CeramicaException {
 		return service.consultarTodosClientes();
 	}
 
 	@GET
 	@Path("consultar/{id}")
-	public Cliente consultarPorId(@PathParam("id") int id) {
+	public Cliente consultarPorId(@PathParam("id") int id) throws CeramicaException {
 		return service.consultarPorId(id);
 	}
 
@@ -59,7 +63,7 @@ public class ClienteController {
 	@Path("/filtrar")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Cliente> consultarComFiltro(ClienteSeletor seletor) {
+	public List<Cliente> consultarComFiltro(ClienteSeletor seletor) throws CeramicaException {
 		return service.consultarComFiltro(seletor);
 	}
 }

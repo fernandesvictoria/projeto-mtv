@@ -14,6 +14,12 @@
 			<version>8.0.32</version>
 		</dependency>
 		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>30.1-jre</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.mindrot</groupId>
 			<artifactId>jbcrypt</artifactId>
 			<version>0.4</version>
@@ -79,6 +85,13 @@
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
 			<artifactId>jackson-dataformat-yaml</artifactId>
 			<version>2.15.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>jakarta.platform</groupId>
+			<artifactId>jakarta.jakartaee-api</artifactId>
+			<version>10.0.0</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
