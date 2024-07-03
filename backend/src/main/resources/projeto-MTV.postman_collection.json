@@ -3,8 +3,8 @@
 		"_postman_id": "8e1cfce4-d5dc-41a9-b481-4d82606cae69",
 		"name": "projeto-MTV",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "29077056",
-		"_collection_link": "https://projeto-mtv-9868.postman.co/workspace/Projeto-MTV-Workspace~1884a8b3-ceef-4b7b-8878-2e348c5b9acb/collection/29077056-8e1cfce4-d5dc-41a9-b481-4d82606cae69?action=share&source=collection_link&creator=29077056"
+		"_exporter_id": "28749808",
+		"_collection_link": "https://projeto-mtv-9868.postman.co/workspace/Projeto-MTV-Workspace~1884a8b3-ceef-4b7b-8878-2e348c5b9acb/collection/29077056-8e1cfce4-d5dc-41a9-b481-4d82606cae69?action=share&source=collection_link&creator=28749808"
 	},
 	"item": [
 		{
@@ -33,6 +33,37 @@
 						"rest",
 						"cliente",
 						"salvar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"login\": \"vic\",\r\n    \"senha\": \"zelda\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/projeto-mtv/rest/auth/autenticar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto-mtv",
+						"rest",
+						"auth",
+						"autenticar"
 					]
 				}
 			},
@@ -175,7 +206,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"cliente\": {\r\n            \"cpf\": \"00011122233\",\r\n            \"idCliente\": 1,\r\n            \"nome\": \"Tati\",\r\n            \"telefone\": \"11112221\"\r\n        },\r\n        \"estagio\": \"Biscoito\",\r\n        \"tamanho\": \"M\",\r\n        \"tipoPeca\": \"Xícara\",\r\n        \"valorTotal\": 50.0\r\n    }",
+					"raw": " {\r\n        \"cliente\": {\r\n            \"cpf\": \"00011122233\",\r\n            \"idCliente\": 1,\r\n            \"nome\": \"Tati\",\r\n            \"telefone\": \"11112221\"\r\n        },\r\n        \"descricao\": \"Tigelão rosa choque\",\r\n        \"estagio\": \"CRUA\",\r\n        \"idPeca\": 1,\r\n        \"tamanho\": \"GG\",\r\n        \"tipo\": {\r\n            \"idTipo\": 4,\r\n            \"nome\": \"Tigela\"\r\n        },\r\n        \"valorTotal\": 10.0\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"

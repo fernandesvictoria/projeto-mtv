@@ -68,7 +68,7 @@ public class PecaRepository implements BaseRepository<Peca> {
 	@Override
 	public boolean alterar(Peca pecaEditada) {
 		boolean alterou = false;
-		String query = " UPDATE peca "
+		String query = " UPDATE PECA "
 				+ " SET ID_CLIENTE=?, ID_TIPO=?, TAMANHO=?, DESCRICAO=?, ESTAGIO=?, VALOR_TOTAL=?"
 				+ " WHERE ID_PECA=? ";
 
@@ -173,8 +173,9 @@ public class PecaRepository implements BaseRepository<Peca> {
 		Statement stmt = Banco.getStatement(conn);
 		ResultSet resultado = null;
 
-		String query = " select p.* from peca p " + " inner join cliente c on p.ID_CLIENTE = c.ID_CLIENTE "
-				+ " inner join tipo t on t.ID_TIPO = p.ID_TIPO ";
+		String query = " SELECT p.* FROM PECA p "
+				+ " INNER JOIN CLIENTE c ON p.ID_CLIENTE = c.ID_CLIENTE "
+				+ " INNER JOIN TIPO t ON t.ID_TIPO = p.ID_TIPO ";
 
 		boolean primeiro = true;
 
@@ -272,7 +273,7 @@ public class PecaRepository implements BaseRepository<Peca> {
 	}
 
 	public void atualizarValorTotal(int idPeca, double soma) {
-		String query = " UPDATE peca SET VALOR_TOTAL = ?  WHERE ID_PECA = ?; ";
+		String query = " UPDATE PECA SET VALOR_TOTAL = ?  WHERE ID_PECA = ?; ";
 		Connection conn = Banco.getConnection();
 		PreparedStatement stmt = Banco.getPreparedStatement(conn, query);
 		ResultSet resultado = null;
@@ -284,6 +285,35 @@ public class PecaRepository implements BaseRepository<Peca> {
 
 		} catch (SQLException erro) {
 			System.out.println("Erro ao atualizar valor total de peças!");
+			System.out.println("Erro: " + erro.getMessage());
+		} finally {
+			Banco.closeResultSet(resultado);
+			Banco.closePreparedStatement(stmt);
+			Banco.closeConnection(conn);
+		}
+	}
+	
+	public void atualizarEstagioPeca(int idPeca, String estagio) {
+		String query = " UPDATE PECA SET ESTAGIO =? WHERE ID_PECA =?; ";
+		Connection conn = Banco.getConnection();
+		PreparedStatement stmt = Banco.getPreparedStatement(conn, query);
+		ResultSet resultado = null;
+		
+		if (estagio == "ESMALTE") {
+			estagio = "ESMALTADA";
+		}
+		
+		if (estagio == "BISCOITO") {
+			estagio = "BISCOITADA";
+		}
+		
+		try {
+			stmt.setString(1, estagio);
+			stmt.setInt(2, idPeca);
+			stmt.executeUpdate();
+
+		} catch (SQLException erro) {
+			System.out.println("Erro ao atualizar estágio de peça!");
 			System.out.println("Erro: " + erro.getMessage());
 		} finally {
 			Banco.closeResultSet(resultado);
