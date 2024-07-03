@@ -8,44 +8,13 @@
 	},
 	"item": [
 		{
-			"name": "Cliente - Salvar",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"nome\": \"Juao\",\r\n  \"cpf\": \"34307100816\",\r\n  \"telefone\": \"123456780\"\r\n  \r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/projeto-mtv/rest/cliente/salvar",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"projeto-mtv",
-						"rest",
-						"cliente",
-						"salvar"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Login",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"login\": \"vic\",\r\n    \"senha\": \"zelda\"\r\n}\r\n",
+					"raw": "{\r\n    \"login\": \"malu\",\r\n    \"senha\": \"malu\"\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -70,12 +39,26 @@
 			"response": []
 		},
 		{
-			"name": "Cliente - Excluir",
+			"name": "Cliente - Salvar",
 			"request": {
-				"method": "DELETE",
-				"header": [],
+				"method": "POST",
+				"header": [
+					{
+						"key": "idSessao",
+						"value": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Juao\",\r\n  \"cpf\": \"34307100816\",\r\n  \"telefone\": \"123456780\"\r\n  \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:8080/projeto-mtv/rest/cliente/excluir/1",
+					"raw": "http://localhost:8080/projeto-mtv/rest/restrito/cliente/salvar",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -84,6 +67,35 @@
 					"path": [
 						"projeto-mtv",
 						"rest",
+						"restrito",
+						"cliente",
+						"salvar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cliente - Excluir",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "idSessao",
+						"value": ""
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/projeto-mtv/rest/restrito/cliente/excluir/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projeto-mtv",
+						"rest",
+						"restrito",
 						"cliente",
 						"excluir",
 						"1"
@@ -96,7 +108,12 @@
 			"name": "Cliente - Atualizar",
 			"request": {
 				"method": "PUT",
-				"header": [],
+				"header": [
+					{
+						"key": "idSessao",
+						"value": ""
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n\"idCliente\": 5,\r\n  \"nome\": \"Paulo Mendes\",\r\n  \"cpf\": \"12345678901\",\r\n  \"telefone\": \"987554854\"\r\n  \r\n}",
@@ -107,7 +124,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/projeto-mtv/rest/cliente/alterar",
+					"raw": "http://localhost:8080/projeto-mtv/rest/restrito/cliente/alterar",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -116,6 +133,7 @@
 					"path": [
 						"projeto-mtv",
 						"rest",
+						"restrito",
 						"cliente",
 						"alterar"
 					]
@@ -127,9 +145,14 @@
 			"name": "Cliente - Consultar por ID",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "idSessao",
+						"value": ""
+					}
+				],
 				"url": {
-					"raw": "http://localhost:8080/projeto-mtv/rest/cliente/consultar/2",
+					"raw": "http://localhost:8080/projeto-mtv/rest/restrito/cliente/consultar/2",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -138,6 +161,7 @@
 					"path": [
 						"projeto-mtv",
 						"rest",
+						"restrito",
 						"cliente",
 						"consultar",
 						"2"
@@ -149,10 +173,18 @@
 		{
 			"name": "Cliente - Consultar Todos",
 			"request": {
+				"auth": {
+					"type": "bearer"
+				},
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "idSessao",
+						"value": ""
+					}
+				],
 				"url": {
-					"raw": "http://localhost:8080/projeto-mtv/rest/cliente/todos",
+					"raw": "http://localhost:8080/projeto-mtv/rest/restrito/cliente/todos",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -161,6 +193,7 @@
 					"path": [
 						"projeto-mtv",
 						"rest",
+						"restrito",
 						"cliente",
 						"todos"
 					]
@@ -172,7 +205,12 @@
 			"name": "Cliente - Filtrar",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "idSessao",
+						"value": ""
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n\"nomeCliente\": \"Paulo Mendes\"\r\n}",
@@ -183,7 +221,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/projeto-mtv/rest/cliente/filtrar",
+					"raw": "http://localhost:8080/projeto-mtv/rest/restrito/cliente/filtrar",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -192,6 +230,7 @@
 					"path": [
 						"projeto-mtv",
 						"rest",
+						"restrito",
 						"cliente",
 						"filtrar"
 					]
@@ -203,7 +242,12 @@
 			"name": "Peça - Salvar",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "idSessao",
+						"value": ""
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": " {\r\n        \"cliente\": {\r\n            \"cpf\": \"00011122233\",\r\n            \"idCliente\": 1,\r\n            \"nome\": \"Tati\",\r\n            \"telefone\": \"11112221\"\r\n        },\r\n        \"descricao\": \"Tigelão rosa choque\",\r\n        \"estagio\": \"CRUA\",\r\n        \"idPeca\": 1,\r\n        \"tamanho\": \"GG\",\r\n        \"tipo\": {\r\n            \"idTipo\": 4,\r\n            \"nome\": \"Tigela\"\r\n        },\r\n        \"valorTotal\": 10.0\r\n    }",
@@ -214,7 +258,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/projeto-mtv/rest/peca/salvar",
+					"raw": "http://localhost:8080/projeto-mtv/rest/restrito/peca/salvar",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -223,6 +267,7 @@
 					"path": [
 						"projeto-mtv",
 						"rest",
+						"restrito",
 						"peca",
 						"salvar"
 					]
@@ -234,9 +279,14 @@
 			"name": "Peça - Excluir",
 			"request": {
 				"method": "DELETE",
-				"header": [],
+				"header": [
+					{
+						"key": "idSessao",
+						"value": ""
+					}
+				],
 				"url": {
-					"raw": "http://localhost:8080/projeto-mtv/rest/peca/excluir/5",
+					"raw": "http://localhost:8080/projeto-mtv/rest/restrito/peca/excluir/5",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -245,6 +295,7 @@
 					"path": [
 						"projeto-mtv",
 						"rest",
+						"restrito",
 						"peca",
 						"excluir",
 						"5"
@@ -257,7 +308,12 @@
 			"name": "Peça - Atualizar",
 			"request": {
 				"method": "PUT",
-				"header": [],
+				"header": [
+					{
+						"key": "idSessao",
+						"value": ""
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n        \"cliente\": {\r\n            \"cpf\": \"00011122233\",\r\n            \"idCliente\": 1,\r\n            \"nome\": \"Tati\",\r\n            \"telefone\": \"11112221\"\r\n        },\r\n        \"estagio\": \"Esmalte\",\r\n        \"idPeca\": 1,\r\n        \"tamanho\": \"M\",\r\n        \"tipoPeca\": \"Prato\",\r\n        \"valorTotal\": 50.0\r\n    }",
@@ -268,7 +324,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/projeto-mtv/rest/peca/alterar",
+					"raw": "http://localhost:8080/projeto-mtv/rest/restrito/peca/alterar",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -277,6 +333,7 @@
 					"path": [
 						"projeto-mtv",
 						"rest",
+						"restrito",
 						"peca",
 						"alterar"
 					]
@@ -288,9 +345,14 @@
 			"name": "Peça - Consultar por ID",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "idSessao",
+						"value": ""
+					}
+				],
 				"url": {
-					"raw": "http://localhost:8080/projeto-mtv/rest/peca/consultar/1",
+					"raw": "http://localhost:8080/projeto-mtv/rest/restrito/peca/consultar/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -299,6 +361,7 @@
 					"path": [
 						"projeto-mtv",
 						"rest",
+						"restrito",
 						"peca",
 						"consultar",
 						"1"
@@ -311,9 +374,14 @@
 			"name": "Peça - Consultar Todas",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "idSessao",
+						"value": "c49d4693-0cc6-48b5-ab1c-30ea5dd33e86"
+					}
+				],
 				"url": {
-					"raw": "http://localhost:8080/projeto-mtv/rest/peca/todos",
+					"raw": "http://localhost:8080/projeto-mtv/rest/restrito/peca/todos",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -322,6 +390,7 @@
 					"path": [
 						"projeto-mtv",
 						"rest",
+						"restrito",
 						"peca",
 						"todos"
 					]
@@ -333,7 +402,12 @@
 			"name": "Peça - Filtrar",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "idSessao",
+						"value": ""
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"tipo\": \"prato\",\r\n    \"cliente\": \"Tati\"\r\n}",
@@ -344,7 +418,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/projeto-mtv/rest/peca/filtrar",
+					"raw": "http://localhost:8080/projeto-mtv/rest/restrito/peca/filtrar",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -353,6 +427,7 @@
 					"path": [
 						"projeto-mtv",
 						"rest",
+						"restrito",
 						"peca",
 						"filtrar"
 					]
@@ -368,6 +443,10 @@
 					{
 						"key": "Content-Type",
 						"value": "application/json"
+					},
+					{
+						"key": "idSessao",
+						"value": ""
 					}
 				],
 				"body": {
@@ -375,7 +454,7 @@
 					"raw": "{\n    \"dataQueima\": \"2024-06-05T08:30:00\",\n    \"tipoQueima\": \"Redução\",\n    \"temperaturaAlcancada\": 1230,\n    \"peca\": {\n        \"idPeca\": 1\n    },\n    \"forno\": \"Elétrico\",\n    \"precoQueima\": 150.00,\n    \"pago\": false\n}\n"
 				},
 				"url": {
-					"raw": "http://localhost:8080/projeto-mtv/rest/queima/salvar",
+					"raw": "http://localhost:8080/projeto-mtv/rest/restrito/queima/salvar",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -384,6 +463,7 @@
 					"path": [
 						"projeto-mtv",
 						"rest",
+						"restrito",
 						"queima",
 						"salvar"
 					]
@@ -395,7 +475,12 @@
 			"name": "Queima - Excluir",
 			"request": {
 				"method": "DELETE",
-				"header": [],
+				"header": [
+					{
+						"key": "idSessao",
+						"value": ""
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "",
@@ -406,7 +491,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/projeto-mtv/rest/queima/6",
+					"raw": "http://localhost:8080/projeto-mtv/rest/restrito/queima/6",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -415,6 +500,7 @@
 					"path": [
 						"projeto-mtv",
 						"rest",
+						"restrito",
 						"queima",
 						"6"
 					]
@@ -430,6 +516,10 @@
 					{
 						"key": "Content-Type",
 						"value": "application/json"
+					},
+					{
+						"key": "idSessao",
+						"value": ""
 					}
 				],
 				"body": {
@@ -437,7 +527,7 @@
 					"raw": "{\n    \"idQueima\": 6,\n    \"dataQueima\": \"2024-06-10T08:30:00\",\n    \"tipoQueima\": \"Oxidação\",\n    \"temperaturaAlcancada\": 1250,\n    \"peca\": {\n        \"idPeca\": 2\n    },\n    \"forno\": \"A gás\",\n    \"precoQueima\": 200.00,\n    \"pago\": true\n}\n"
 				},
 				"url": {
-					"raw": "http://localhost:8080/projeto-mtv/rest/queima/alterar",
+					"raw": "http://localhost:8080/projeto-mtv/rest/restrito/queima/alterar",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -446,6 +536,7 @@
 					"path": [
 						"projeto-mtv",
 						"rest",
+						"restrito",
 						"queima",
 						"alterar"
 					]
@@ -457,9 +548,14 @@
 			"name": "Queima - Consultar por ID",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "idSessao",
+						"value": ""
+					}
+				],
 				"url": {
-					"raw": "http://localhost:8080/projeto-mtv/rest/queima/consultar/6",
+					"raw": "http://localhost:8080/projeto-mtv/rest/restrito/queima/consultar/6",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -468,6 +564,7 @@
 					"path": [
 						"projeto-mtv",
 						"rest",
+						"restrito",
 						"queima",
 						"consultar",
 						"6"
@@ -480,9 +577,14 @@
 			"name": "Queima - Consultar Todos",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "idSessao",
+						"value": ""
+					}
+				],
 				"url": {
-					"raw": "http://localhost:8080/projeto-mtv/rest/queima/todos",
+					"raw": "http://localhost:8080/projeto-mtv/rest/restrito/queima/todos",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -491,6 +593,7 @@
 					"path": [
 						"projeto-mtv",
 						"rest",
+						"restrito",
 						"queima",
 						"todos"
 					]
@@ -502,7 +605,12 @@
 			"name": "Queima - Filtrar",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "idSessao",
+						"value": ""
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"pago\": true\r\n}",
@@ -513,7 +621,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/projeto-mtv/rest/queima/filtrar",
+					"raw": "http://localhost:8080/projeto-mtv/rest/restrito/queima/filtrar",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -522,6 +630,7 @@
 					"path": [
 						"projeto-mtv",
 						"rest",
+						"restrito",
 						"queima",
 						"filtrar"
 					]
@@ -533,7 +642,12 @@
 			"name": "Tipo - Salvar",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "idSessao",
+						"value": ""
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n  \"nome\": \"Prato\"\r\n}",
@@ -544,7 +658,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/projeto-mtv/rest/tipo/salvar",
+					"raw": "http://localhost:8080/projeto-mtv/rest/restrito/tipo/salvar",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -553,6 +667,7 @@
 					"path": [
 						"projeto-mtv",
 						"rest",
+						"restrito",
 						"tipo",
 						"salvar"
 					]
@@ -564,9 +679,14 @@
 			"name": "Tipo - Excluir",
 			"request": {
 				"method": "DELETE",
-				"header": [],
+				"header": [
+					{
+						"key": "idSessao",
+						"value": ""
+					}
+				],
 				"url": {
-					"raw": "http://localhost:8080/projeto-mtv/rest/tipo/excluir/6",
+					"raw": "http://localhost:8080/projeto-mtv/rest/restrito/tipo/excluir/6",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -575,6 +695,7 @@
 					"path": [
 						"projeto-mtv",
 						"rest",
+						"restrito",
 						"tipo",
 						"excluir",
 						"6"
@@ -587,7 +708,12 @@
 			"name": "Tipo - Atualizar",
 			"request": {
 				"method": "PUT",
-				"header": [],
+				"header": [
+					{
+						"key": "idSessao",
+						"value": ""
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{\r\n    \"idTipo\": 7,\r\n    \"nome\": \"Caixa\"\r\n}",
@@ -598,7 +724,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/projeto-mtv/rest/tipo/alterar",
+					"raw": "http://localhost:8080/projeto-mtv/rest/restrito/tipo/alterar",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -607,6 +733,7 @@
 					"path": [
 						"projeto-mtv",
 						"rest",
+						"restrito",
 						"tipo",
 						"alterar"
 					]
@@ -620,7 +747,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/projeto-mtv/rest/tipo/consultar/1",
+					"raw": "http://localhost:8080/projeto-mtv/rest/restrito/tipo/consultar/1?idSessao",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -629,9 +756,16 @@
 					"path": [
 						"projeto-mtv",
 						"rest",
+						"restrito",
 						"tipo",
 						"consultar",
 						"1"
+					],
+					"query": [
+						{
+							"key": "idSessao",
+							"value": null
+						}
 					]
 				}
 			},
@@ -641,9 +775,14 @@
 			"name": "Tipo - Consultar Todos",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "idSessao",
+						"value": ""
+					}
+				],
 				"url": {
-					"raw": "http://localhost:8080/projeto-mtv/rest/tipo/todos",
+					"raw": "http://localhost:8080/projeto-mtv/rest/restrito/tipo/todos",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -652,6 +791,7 @@
 					"path": [
 						"projeto-mtv",
 						"rest",
+						"restrito",
 						"tipo",
 						"todos"
 					]
