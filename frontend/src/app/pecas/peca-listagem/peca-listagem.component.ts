@@ -7,7 +7,7 @@ import { Cliente } from '../../shared/model/cliente';
 import { EstagioPeca } from '../../shared/model/enum/estagio-peca';
 import { ClientesService } from '../../shared/service/clientes.service';
 import { Tipo } from '../../shared/model/tipo';
-import { TipoServiceService } from '../../shared/service/tipo-service.service';
+import { TipoServiceService } from '../../shared/service/tipos.service';
 import { Router } from '@angular/router';
 
 @Component({

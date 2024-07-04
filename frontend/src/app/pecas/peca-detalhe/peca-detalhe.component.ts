@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientesService } from '../../shared/service/clientes.service';
 import { PecasService } from '../../shared/service/pecas.service';
-import { TipoServiceService } from '../../shared/service/tipo-service.service';
+import { TipoServiceService } from '../../shared/service/tipos.service';
 import { Peca } from '../../shared/model/peca';
 import Swal from 'sweetalert2';
 import { Cliente } from '../../shared/model/cliente';
