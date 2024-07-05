@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class TipoServiceService {
 
-  private readonly API = 'http://localhost:8080/rest/tipo';
+  private readonly API = 'http://localhost:8080/projeto-mtv/rest/restrito/tipo';
   constructor(private httpClient: HttpClient) {}
 
 

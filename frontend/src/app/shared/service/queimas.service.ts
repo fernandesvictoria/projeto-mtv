@@ -9,7 +9,7 @@ import { QueimaSeletor } from '../seletor/queima.seletor';
 })
 export class QueimasService {
 
-  private readonly API = 'http://localhost:8080/rest/queima';
+  private readonly API = 'http://localhost:8080/projeto-mtv/rest/restrito/queima';
   constructor(private httpClient: HttpClient) { }
 
   consultarTodasQueimas(): Observable<Array<Queima>> {

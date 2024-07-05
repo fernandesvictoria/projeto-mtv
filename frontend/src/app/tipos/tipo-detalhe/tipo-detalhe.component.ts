@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Tipo } from '../../shared/model/tipo';
-import { TipoServiceService } from '../../shared/service/tipo-service.service';
+import { TipoServiceService } from '../../shared/service/tipos.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
