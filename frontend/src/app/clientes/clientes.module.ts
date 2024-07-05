@@ -6,18 +6,16 @@ import { ClienteListagemComponent } from './cliente-listagem/cliente-listagem.co
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ClienteDetalheComponent } from './cliente-detalhe/cliente-detalhe.component';
-
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [
-    ClienteListagemComponent, ClienteDetalheComponent
-  ],
+  declarations: [ClienteListagemComponent, ClienteDetalheComponent,],
   imports: [
     CommonModule,
     HttpClientModule,
     ClientesRoutingModule,
     FormsModule,
-
-  ]
+    SharedModule,
+  ],
 })
-export class ClientesModule { }
+export class ClientesModule {}
