@@ -8,7 +8,7 @@ import { UsuarioDTO } from '../../shared/model/usuario-dto';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
 
@@ -19,12 +19,16 @@ export class LoginComponent {
     private router: Router,
   ) {}
 
+
   public login () {
     this.loginService.autenticar(this.dto).subscribe(
       (usuarioAutenticado: Usuario) => {
-        Swal.fire('Usuário autenticado com sucesso!', '', 'success')
-        localStorage.setItem('usuarioASutenticado', JSON.stringify(usuarioAutenticado));
-        this.router.navigate(['']);
+        Swal.fire('Usuário autenticado com sucesso!', '', 'success');
+        localStorage.setItem(
+          'usuarioAutenticado',
+          JSON.stringify(usuarioAutenticado)
+        );
+        this.router.navigate(['/clientes']); //ARRUMAR A ROTA AQUI!!!!!
       },
       (e) => {
         Swal.fire({
