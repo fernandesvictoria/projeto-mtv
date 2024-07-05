@@ -8,7 +8,8 @@ import { PecaSeletor } from '../seletor/peca.seletor';
   providedIn: 'root',
 })
 export class PecasService {
-  private readonly API = 'http://localhost:8080/rest/peca';
+  private readonly API = 'http://localhost:8080/projeto-mtv/rest/restrito/peca';
+
   constructor(private httpClient: HttpClient) {}
 
   excluirPeca(id: number): Observable<boolean> {

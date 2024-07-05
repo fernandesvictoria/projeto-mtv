@@ -10,7 +10,7 @@ import { UsuarioDTO } from '../model/usuario-dto';
 export class LoginService {
 
 
-  private readonly API = 'http://localhost:8080/projeto-mtv/rest/auth/login'; //verificar path do controller
+  private readonly API = 'http://localhost:8080/projeto-mtv/rest/auth'; //verificar path do controller
 
   constructor(private httpClient: HttpClient) {}
 
