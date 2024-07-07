@@ -15,13 +15,22 @@
         </div>
         <div class="mb-3">
           <label for="password" class="form-label">Senha:</label>
-          <input type="password" id="password" class="form-control" name="password" required [(ngModel)]="dto.senha">
+          <input type="password" id="password" class="form-control" name="password" required [(ngModel)]="dto.senha" maxlength="6">
         </div>
-        <div class="d-flex justify-content-center">
-          <button type="submit" class="btn btn-outline-dark" style="width: 150px;" (click)="login()">
-            <i class="bi bi-box-arrow-in-right"></i> Entrar
-          </button>
+        <div>
+          <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-outline-dark" style="width: 150px;" (click)="login()">
+              <i class="bi bi-box-arrow-in-right"></i> Entrar
+            </button>
+          </div>
+          <!-- &nbsp;
+          <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-outline-dark" style="width: 150px;" (click)="cadastrar()">
+              <i class="bi bi-box-arrow-in-right"></i> Cadastrar
+            </button>
+          </div> -->
         </div>
+
       </form>
     </div>
   </div>
