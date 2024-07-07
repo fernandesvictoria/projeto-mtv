@@ -18,6 +18,10 @@ export class LoginService {
     return this.httpClient.post<Usuario>(this.API + '/autenticar', loginRequest)
   }
 
+  salvar(novoUsuario: Usuario): Observable<Usuario> {
+    return this.httpClient.post<Usuario>(this.API + '/cadastrar', novoUsuario)
+  }
+
   sair() {
     localStorage.removeItem('usuarioAutenticado');
   }

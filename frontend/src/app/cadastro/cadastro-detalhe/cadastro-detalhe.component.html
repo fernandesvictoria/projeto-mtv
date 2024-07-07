@@ -1,1 +1,40 @@
-<p>cadastro-detalhe works!</p>
+<div class="container mb-5 mt-5">
+  <div class="card">
+    <div class="card-header" style="background-color: #80ba7a;">
+      <h5 class="text-white">
+        Cadastro de novo usuário
+      </h5>
+    </div>
+
+    <div class="card-body">
+      <div class="container col-md-6">
+        <div>
+          <form class="mt-4">
+            <div class="mb-3">
+              <label for="usuario" class="form-label">Nome:</label>
+              <input type="text" id="nome" class="form-control" name="usuario" [(ngModel)]="usuario.username">
+            </div>
+
+            <div class="mb-3">
+              <label for="cpf" class="form-label">Senha:</label>
+              <input type="text" id="cpf" class="form-control" name="cpf" [(ngModel)]="usuario.password"
+              maxlength="11" pattern="[0-9]*" required>
+            </div>
+
+            <div class="row mt-4">
+              <div class="col-md-12">
+                <button type="submit" class="btn btn-outline-success col-md-3" (click)="salvar()">
+                  Salvar
+                </button>
+                &nbsp;
+                <a href="/login" class="btn btn-outline-dark col-md-3">
+                  Voltar
+                </a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
